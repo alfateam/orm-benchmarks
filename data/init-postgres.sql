@@ -82,7 +82,7 @@ CREATE TABLE suppliers (
 	"phone" varchar NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS "orderdetails_order_id_idx" ON "order_details" ("order_id");
+-- CREATE INDEX IF NOT EXISTS "orderdetails_order_id_idx" ON "order_details" ("order_id");
 CREATE INDEX IF NOT EXISTS "orders_customer_id_idx" ON "orders" ("customer_id");
 -- CREATE INDEX IF NOT EXISTS "product_id_idx" ON "order_details" ("product_id");
 -- CREATE INDEX IF NOT EXISTS "recepient_idx" ON "employees" ("recipient_id");
