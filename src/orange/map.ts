@@ -48,7 +48,8 @@ const map = orange.map(x => {
     return {
         orders: x.orders.map(v => {
             return {
-                details: v.hasMany(x.details).by('orderId')
+                details: v.hasMany(x.details).by('orderId'),
+                customer: v.references(x.customers).by('customerId')
             };
 
         })

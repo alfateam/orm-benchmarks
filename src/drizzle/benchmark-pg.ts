@@ -5,7 +5,7 @@ async function benchmark() {
 	await initPool();
 	console.time('drizzle');
 	const promises = [];
-	for (let i = 0; i < 30; i++) {
+	for (let i = 0; i < 1; i++) {
 		promises.push(getOrdersWithDetails());
 	}
 	await Promise.all(promises);
@@ -19,17 +19,31 @@ async function initPool() {
 }
 
 async function getOrdersWithDetails() {
-	await postgres.query.customers.findMany({
+	const rows = await postgres.query.orders.findMany({
 		with: {
-			orders: {
-				with: {
-					details: {
+			details: {
 
-					}
-				}
-			}
+			},			
+			// customer: {
+
+			// }
 		}
+		,
+		limit: 100
 	});
+	// const rows = await postgres.query.customers.findMany({
+	// 	with: {
+	// 		orders: {
+	// 			with: {
+	// 				details: {
+
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// });
+	JSON.stringify(rows);
+
 }
 
 benchmark();
