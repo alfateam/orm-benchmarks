@@ -1,49 +1,46 @@
 import { exit } from 'node:process';
 import postgres from './postgres';
+const ITERATIONS = 50;
+
+benchmark();
 
 async function benchmark() {
-	await initPool();
-	console.time('drizzle');
-	const promises = [];
-	for (let i = 0; i < 1; i++) {
-		promises.push(getOrdersWithDetails());
-	}
-	await Promise.all(promises);
-	console.timeEnd('drizzle');
+	await warmup();
+	await getRowsWithRelations();
 	exit(0);
 }
 
-async function initPool() {
+async function warmup() {
 	//to initate possible lazy loaded pool
 	await postgres.query.customers.findFirst();
 }
 
-async function getOrdersWithDetails() {
-	const rows = await postgres.query.orders.findMany({
-		with: {
-			details: {
+async function getRowsWithRelations() {
+	console.time('drizzle getRowsWithRelations');
+	const promises = [];
+	for (let i = 0; i < ITERATIONS; i++) {
+		const p = postgres.query.orders.findMany({
+			with: {
+				details: {
+					with: {
+						product: {
+							with: {
+								supplier: {
 
-			},			
-			// customer: {
-
-			// }
-		}
-		,
-		limit: 100
-	});
-	// const rows = await postgres.query.customers.findMany({
-	// 	with: {
-	// 		orders: {
-	// 			with: {
-	// 				details: {
-
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// });
-	JSON.stringify(rows);
-
+								}
+							}
+						}
+					}
+				},
+				customer: {},	
+				employee: {}											
+			}
+		}).then(JSON.stringify);
+		promises.push(p);
+	}
+	await Promise.all(promises);
+	console.timeEnd('drizzle getRowsWithRelations')
 }
 
-benchmark();
+
+

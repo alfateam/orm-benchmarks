@@ -16,7 +16,20 @@ const map = orange.map(x => {
                 shipPostalCode: column('ship_postal_code').string(),
                 shipCountry: column('ship_country').string(),
                 customerId: column('customer_id').string(),
-                employeeId: column('employee_id').string(),
+                employeeId: column('employee_id').numeric(),
+            };
+        }),
+        product: x.table('products').map( ({ column }) => {
+            return {
+                id: column("id").string().primary(),
+                name: column("name").string(),
+                quantityPerUnit: column("unit_price").numeric(),
+                unitPrice: column("unit_price").numeric(),
+                unitsInStock: column("units_in_stock").numeric(),
+                unitsOnOrder: column("units_on_order").numeric(),
+                reorderLevel: column("reorder_level").numeric(),
+                discontinued: column("discontinued").numeric(),
+                supplierId: column("supplier_id").numeric(),
             };
         }),
         details: x.table('order_details').map( ({ column }) => {
@@ -27,6 +40,25 @@ const map = orange.map(x => {
                 quantity: column("quantity").numeric(),
                 discount: column("discount").numeric(),
             };
+        }),
+        employees: x.table('employees').map( ({ column }) => {
+            return {
+                id: column("id").numeric().primary(),
+                lastName: column("last_name").string(),
+                firstName: column("first_name").string(),
+                title: column("title").string(),
+                titleOfCourtesy: column("title_of_courtesy").string(),
+                birthDate: column("birth_date").date(),
+                hireDate: column("hire_date").date(),
+                address: column("address").string(),
+                city: column("city").string(),
+                postalCode: column("postal_code").string(),
+                country: column("country").string(),
+                homePhone: column("home_phone").string(),
+                extension: column("extension").numeric(),
+                notes: column("notes").string(),
+                recipient_id: column("recipient_id").numeric(),
+            }
         }),
         customers: x.table('customers').map( ({ column }) => {
             return {
@@ -43,13 +75,46 @@ const map = orange.map(x => {
                 fax: column("fax").string(),       
             }
         }),
+        suppliers: x.table('suppliers').map( ({ column }) => {
+            return {
+                id: column("id").numeric().primary(),
+                companyName: column("company_name").string(),
+                contactName: column("contact_name").string(),
+                contactTitle: column("contact_title").string(),
+                address: column("address").string(),
+                city: column("city").string(),
+                postalCode: column("postal_code").string(),
+                region: column("region").string(),
+                country: column("country").string(),
+                phone: column("phone").string(),
+            }
+        }),
+    }
+}).map(x => {
+    return {
+        product: x.product.map(v => {
+            return {
+                supplier: v.references(x.suppliers).by('supplierId')
+            };
+
+        })
+    }
+}).map(x => {
+    return {
+        details: x.details.map(v => {
+            return {
+                product: v.references(x.product).by('productId')
+            };
+
+        })
     }
 }).map(x => {
     return {
         orders: x.orders.map(v => {
             return {
                 details: v.hasMany(x.details).by('orderId'),
-                customer: v.references(x.customers).by('customerId')
+                customer: v.references(x.customers).by('customerId'),
+                employee: v.references(x.employees).by('employeeId'),
             };
 
         })

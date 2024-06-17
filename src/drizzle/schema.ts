@@ -152,6 +152,10 @@ export const ordersRelations = relations(orders, (r) => {
       fields: [orders.customerId],
       references: [customers.id],
     }),
+    employee: r.one(employees, {
+      fields: [orders.employeeId],
+      references: [employees.id],
+    }),
 
     // products: r.many(products)
   };

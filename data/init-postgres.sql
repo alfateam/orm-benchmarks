@@ -82,11 +82,11 @@ CREATE TABLE suppliers (
 	"phone" varchar NOT NULL
 );
 
--- CREATE INDEX IF NOT EXISTS "orderdetails_order_id_idx" ON "order_details" ("order_id");
+CREATE INDEX IF NOT EXISTS "orderdetails_order_id_idx" ON "order_details" ("order_id");
 CREATE INDEX IF NOT EXISTS "orders_customer_id_idx" ON "orders" ("customer_id");
--- CREATE INDEX IF NOT EXISTS "product_id_idx" ON "order_details" ("product_id");
--- CREATE INDEX IF NOT EXISTS "recepient_idx" ON "employees" ("recipient_id");
--- CREATE INDEX IF NOT EXISTS "supplier_idx" ON "products" ("supplier_id");
+CREATE INDEX IF NOT EXISTS "product_id_idx" ON "order_details" ("product_id");
+CREATE INDEX IF NOT EXISTS "recepient_idx" ON "employees" ("recipient_id");
+CREATE INDEX IF NOT EXISTS "supplier_idx" ON "products" ("supplier_id");
 
 ALTER TABLE order_details ADD CONSTRAINT order_details_order_id_orders_id_fk FOREIGN KEY ("order_id") REFERENCES orders("id") ON DELETE cascade;
 

@@ -7,7 +7,7 @@ export const connection = postgres('postgres://postgres:postgres@postgres/postgr
 
 export const db = drizzle(connection, {
   schema,
-  logger: true,
+  logger: false,
 });
 
 export type db = typeof db;
