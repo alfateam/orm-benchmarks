@@ -10,10 +10,6 @@ This guide explains how to run the project with SQL Server using the Remote - Co
 - Visual Studio Code (VS Code) must be installed.
 - The Remote - Containers extension should be installed in VS Code.
 
-## Setup
-
-Ensure your project directory contains the `docker-compose.yml` and `devcontainer.json` files.
-
 ## Steps to Run
 
 The github action will always run remotely on push.  
