@@ -14,7 +14,7 @@
     "init": "tsx ./src/initPostgres.ts",
     "drizzle": "tsx ./src/drizzle/benchmark-pg.ts",
     "orange": "tsx ./src/orange/benchmark-pg.ts",
-    "prisma": "prisma generate && tsx ./src/prisma/benchmark-pg.ts",
+    "prisma": "prisma generate --schema=./src/prisma/schema.prisma && tsx ./src/prisma/benchmark-pg.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
