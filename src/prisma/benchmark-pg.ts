@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
 dotenv.config();
-const ITERATIONS = Number.parseInt(`${process.env.ITERATIONS}?connection_limit=1`);
+const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 
 console.dir('process.env.POSTGRES_URL');
 console.dir(process.env.POSTGRES_URL);
@@ -9,7 +9,7 @@ console.dir(process.env.POSTGRES_URL);
 const prisma = new PrismaClient({
     datasources: {
         db: {
-            url: process.env.POSTGRES_URL,
+            url: `${process.env.POSTGRES_URL}?connection_limit=1`,
         },
     },
     log: [
