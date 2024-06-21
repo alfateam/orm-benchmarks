@@ -1,8 +1,7 @@
-# ORM Benchmarks comparing Orange ORM and Drizzle ORM
-
-# Project Setup with SQL Server and Remote Containers in VS Code
+# ORM Benchmarks for Orange and Drizzle 
 
 This guide explains how to run the project with SQL Server using the Remote - Containers extension in Visual Studio Code.
+The benchmarks will run in the github action as well.
 
 ## Prerequisites
 
