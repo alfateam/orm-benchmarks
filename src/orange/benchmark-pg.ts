@@ -1,6 +1,8 @@
 import { exit } from 'node:process';
 import pg from './postgres';
-const ITERATIONS = 50;
+import dotenv from 'dotenv';
+dotenv.config();;
+const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 // for sql logging:
 // import orange from 'orange-orm';
 // orange.on('query', console.dir)
@@ -8,9 +10,9 @@ const ITERATIONS = 50;
 benchmark();
 
 async function benchmark() {
-    await warmup();
-    await getRowsWithRelations();    
-    exit(0);
+	await warmup();
+	await getRowsWithRelations();
+	exit(0);
 }
 
 async function warmup() {
@@ -36,5 +38,3 @@ async function getRowsWithRelations() {
     await Promise.all(promises);
     console.timeEnd('orange getRowsWithRelations')
 }
-
-

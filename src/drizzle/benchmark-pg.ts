@@ -1,6 +1,8 @@
 import { exit } from 'node:process';
-import postgres from './postgres';
-const ITERATIONS = 50;
+import postgres from './postgres'
+import dotenv from 'dotenv';
+dotenv.config();;
+const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 
 benchmark();
 
@@ -33,7 +35,7 @@ async function getRowsWithRelations() {
 					}
 				},
 				customer: {},	
-				employee: {}											
+				employee: {},
 			}
 		}).then(JSON.stringify);
 		promises.push(p);

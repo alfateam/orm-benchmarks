@@ -5,6 +5,7 @@
   "type": "module",
   "devDependencies": {
     "@types/node": "^20.14.2",
+    "prisma": "^5.15.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.15.1",
     "typescript": "^5.4.5"
@@ -13,11 +14,14 @@
     "init": "tsx ./src/initPostgres.ts",
     "drizzle": "tsx ./src/drizzle/benchmark-pg.ts",
     "orange": "tsx ./src/orange/benchmark-pg.ts",
+    "prisma": "tsx ./src/prisma/benchmark-pg.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^5.15.1",
+    "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.2",
     "orange-orm": "^4.1.4",
     "pg": "^8.12.0",
