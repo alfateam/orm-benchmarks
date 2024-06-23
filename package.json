@@ -23,7 +23,7 @@
     "@prisma/client": "^5.15.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.2",
-    "orange-orm": "^4.2.0-beta.1",    
+    "orange-orm": "4.2.0-beta.4",    
     "pg": "^8.12.0",
     "postgres": "^3.4.4"
   }
