@@ -14,6 +14,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
   },
   "tsc-alias": {
     "resolveFullPaths": true,

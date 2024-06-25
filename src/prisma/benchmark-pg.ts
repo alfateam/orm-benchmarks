@@ -3,9 +3,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 
-console.dir('process.env.POSTGRES_URL');
-console.dir(process.env.POSTGRES_URL);
-
 const prisma = new PrismaClient({
     datasources: {
         db: {

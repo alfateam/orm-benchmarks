@@ -1,4 +1,4 @@
-# ORM Benchmarks for Orange and Drizzle 
+# ORM Benchmarks for Orange, Drizzle , Prisma and MikroORM
 
 This guide explains how to run the project with SQL Server using the Remote - Containers extension in Visual Studio Code.
 The benchmarks will run in the github action as well.
@@ -30,6 +30,8 @@ But you can also run it locally with the following steps:
    - Run ```npm run init``` to init database 
    - Run ```npm run drizzle```
    - Run ```npm run orange```
+   - Run ```npm run prisma```
+   - Run ```npm run mikroorm```
 
 ## Note
 

@@ -15,15 +15,18 @@
     "drizzle": "tsx ./src/drizzle/benchmark-pg.ts",
     "orange": "tsx ./src/orange/benchmark-pg.ts",
     "prisma": "prisma generate --schema=./src/prisma/schema.prisma && tsx ./src/prisma/benchmark-pg.ts",
+    "mikroorm": "tsx ./src/mikro-orm/benchmark-pg.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mikro-orm/core": "^6.2.9",
+    "@mikro-orm/postgresql": "^6.2.9",
     "@prisma/client": "^5.15.1",
     "dotenv": "^16.4.5",
     "drizzle-orm": "^0.31.2",
-    "orange-orm": "4.2.0-beta.6",    
+    "orange-orm": "^4.2.0",
     "pg": "^8.12.0",
     "postgres": "^3.4.4"
   }
