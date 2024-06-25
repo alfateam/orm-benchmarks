@@ -1,7 +1,10 @@
-# ORM Benchmarks for Orange, Drizzle , Prisma and MikroORM
-
+# ORM Benchmarks for Orange, Drizzle and Prisma
 This guide explains how to run the project with Postgres using the Remote - Containers extension in Visual Studio Code.
-The benchmarks will run in the github action as well.
+The benchmarks will run in the github action as well. The benchmark numbers are from the latest run in github actions.
+## Latest benchmarking
+Orange: 3.747s  
+Drizzle: 4.005s  
+Prisma: 9.067s  
 
 ## Prerequisites
 
