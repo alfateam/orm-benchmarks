@@ -1,6 +1,6 @@
 # ORM Benchmarks for Orange, Drizzle , Prisma and MikroORM
 
-This guide explains how to run the project with SQL Server using the Remote - Containers extension in Visual Studio Code.
+This guide explains how to run the project with Postgres using the Remote - Containers extension in Visual Studio Code.
 The benchmarks will run in the github action as well.
 
 ## Prerequisites
