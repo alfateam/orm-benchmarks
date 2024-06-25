@@ -21,7 +21,7 @@ async function warmup() {
 }
 
 async function getRowsWithRelations() {
-    console.time('orange getRowsWithRelations');
+    console.time('orange');
     const promises = [];
     for (let i = 0; i < ITERATIONS; i++) {
         const p = pg.orders.getAll({
@@ -36,5 +36,5 @@ async function getRowsWithRelations() {
         promises.push(p);
     }
     await Promise.all(promises);
-    console.timeEnd('orange getRowsWithRelations')
+    console.timeEnd('orange')
 }

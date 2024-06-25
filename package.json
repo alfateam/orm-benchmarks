@@ -11,7 +11,8 @@
     "typescript": "^5.4.5"
   },
   "scripts": {
-    "init": "tsx ./src/initPostgres.ts",
+    "init": "tsx ./src/initPostgres.ts", 
+    "benchmark": "npm run init && npm run drizzle && npm run orange && npm run prisma",
     "drizzle": "tsx ./src/drizzle/benchmark-pg.ts",
     "orange": "tsx ./src/orange/benchmark-pg.ts",
     "prisma": "prisma generate --schema=./src/prisma/schema.prisma && tsx ./src/prisma/benchmark-pg.ts",

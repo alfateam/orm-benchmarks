@@ -34,7 +34,7 @@ async function warmup() {
 }
 
 async function getRowsWithRelations() {
-    console.time('prisma getRowsWithRelations');
+    console.time('prisma');
     const promises = [];
     for (let i = 0; i < ITERATIONS; i++) {
         const p = prisma.order.findMany({
@@ -50,12 +50,11 @@ async function getRowsWithRelations() {
                         },
                     },
                 },
-            },
-            orderBy: { employeeId: 'asc' }
+            }
         }).then(JSON.stringify);
         promises.push(p);
     }
     await Promise.all(promises);
-    console.timeEnd('prisma getRowsWithRelations');
+    console.timeEnd('prisma');
 
 }

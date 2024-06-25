@@ -18,7 +18,7 @@ async function warmup() {
 }
 
 async function getRowsWithRelations() {
-	console.time('drizzle getRowsWithRelations');
+	console.time('drizzle');
 	const promises = [];
 	for (let i = 0; i < ITERATIONS; i++) {
 		const p = postgres.query.orders.findMany({
@@ -41,7 +41,7 @@ async function getRowsWithRelations() {
 		promises.push(p);
 	}
 	await Promise.all(promises);
-	console.timeEnd('drizzle getRowsWithRelations')
+	console.timeEnd('drizzle')
 }
 
 

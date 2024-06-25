@@ -1,4 +1,5 @@
-import { MikroORM } from '@mikro-orm/core';
+import 'reflect-metadata';
+import { MikroORM, ReflectMetadataProvider } from '@mikro-orm/core';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import dotenv from 'dotenv';
 import { Customer } from './schema';
@@ -13,6 +14,7 @@ const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 
 async function main() {
   const orm = await MikroORM.init({
+    metadataProvider: ReflectMetadataProvider,
     entities: [Customer, Employee, Order, OrderDetail, Product, Supplier],
     dbName: 'your_db_name',
     driver: PostgreSqlDriver,
@@ -38,17 +40,16 @@ async function main() {
   
   async function getRowsWithRelations() {
     const em = orm.em.fork();
-    console.time('mikroORM getRowsWithRelations');
+    console.time('mikroORM');
     const promises = [];
     for (let i = 0; i < ITERATIONS; i++) {
       const p = em.find(Order, {}, {
         populate: ['customer', 'employee', 'orderDetails.product.supplier'],
-        orderBy: { employeeId: 'asc' }
       }).then(JSON.stringify);
       promises.push(p);
     }
     await Promise.all(promises);
-    console.timeEnd('mikroORM getRowsWithRelations');
+    console.timeEnd('mikroORM');
   }
   
 
