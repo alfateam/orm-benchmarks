@@ -29,12 +29,12 @@ But you can also run it locally with the following steps:
 
 4. **Running benchmarks**:
    - Develop within the container. All defined extensions and settings in `devcontainer.json` will be available.
-   - Run ```npm install```
-   - Run ```npm run init``` to init database 
-   - Run ```npm run drizzle```
-   - Run ```npm run orange```
-   - Run ```npm run prisma```
-   - Run ```npm run mikroorm```
+   - ```npm install```
+   - ```npm run init``` to init database 
+   - ```npm run drizzle```
+   - ```npm run orange```
+   - ```npm run prisma```
+   - ```npm run mikroorm``` (Not working yet)
 
 ## Note
 
