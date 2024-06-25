@@ -11,11 +11,11 @@
     "typescript": "^5.4.5"
   },
   "scripts": {
-    "init": "tsx ./src/initPostgres.ts", 
-    "benchmark": "npm run init && npm run drizzle && npm run orange && npm run prisma",
+    "init": "tsx ./src/initPostgres.ts && prisma generate --schema=./src/prisma/schema.prisma", 
+    "benchmark": "npm run init && tsx ./src/orange/benchmark-pg.ts && tsx ./src/drizzle/benchmark-pg.ts && tsx ./src/prisma/benchmark-pg.ts",
     "drizzle": "tsx ./src/drizzle/benchmark-pg.ts",
     "orange": "tsx ./src/orange/benchmark-pg.ts",
-    "prisma": "prisma generate --schema=./src/prisma/schema.prisma && tsx ./src/prisma/benchmark-pg.ts",
+    "prisma": "tsx ./src/prisma/benchmark-pg.ts",
     "mikroorm": "tsx ./src/mikro-orm/benchmark-pg.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
