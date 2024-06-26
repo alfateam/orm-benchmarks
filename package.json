@@ -12,7 +12,7 @@
   },
   "scripts": {
     "init": "tsx ./src/initPostgres.ts && prisma generate --schema=./src/prisma/schema.prisma", 
-    "benchmark": "npm run init && tsx ./src/orange/benchmark-pg.ts && tsx ./src/drizzle/benchmark-pg.ts && tsx ./src/prisma/benchmark-pg.ts",
+    "benchmark": "npm run init && tsx ./src/orange/benchmark-pg.ts && tsx ./src/drizzle/benchmark-pg.ts",
     "drizzle": "tsx ./src/drizzle/benchmark-pg.ts",
     "orange": "tsx ./src/orange/benchmark-pg.ts",
     "prisma": "tsx ./src/prisma/benchmark-pg.ts",
