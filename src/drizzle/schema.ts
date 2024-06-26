@@ -69,7 +69,7 @@ export const orders = pgTable("orders", {
   shipPostalCode: varchar("ship_postal_code"),
   shipCountry: varchar("ship_country").notNull(),
 
-  customerId: integer("customer_id")
+  customerId: varchar("customer_id")
     .notNull()
     .references(() => customers.id, { onDelete: "cascade" }),
 
