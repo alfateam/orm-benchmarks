@@ -14,7 +14,9 @@ async function benchmark() {
 
 async function warmup() {
 	//to initate possible lazy loaded pool
-	await postgres.query.customers.findFirst();
+	for (let i = 0; i < 12; i++) {        
+		await postgres.query.customers.findFirst();
+    }
 }
 
 async function getRowsWithRelations() {

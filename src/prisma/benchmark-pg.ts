@@ -6,7 +6,7 @@ const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 const prisma = new PrismaClient({
     datasources: {
         db: {
-            url: `${process.env.POSTGRES_URL}?connection_limit=1`,
+            url: `${process.env.POSTGRES_URL}?connection_limit=10`,
         },
     },
     log: [
@@ -30,7 +30,9 @@ async function benchmark() {
 }
 
 async function warmup() {
-    await prisma.order.findMany({ take: 1 });
+    for (let i = 0; i < 12; i++) {        
+        await prisma.order.findMany({ take: 1 });        
+    }
 }
 
 async function getRowsWithRelations() {

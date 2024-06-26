@@ -17,7 +17,9 @@ async function benchmark() {
 
 async function warmup() {
     //to initate possible lazy loaded pool
-    await pg.customers.getOne();
+    for (let i = 0; i < 12; i++) {        
+        await pg.customers.getOne();
+    }
 }
 
 async function getRowsWithRelations() {
