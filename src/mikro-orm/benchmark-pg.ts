@@ -2,12 +2,12 @@ import 'reflect-metadata';
 import { MikroORM, ReflectMetadataProvider } from '@mikro-orm/core';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import dotenv from 'dotenv';
-import { Customer } from './schema';
-import { Employee } from './schema';
-import { Order } from './schema';
-import { OrderDetail } from './schema';
-import { Product } from './schema';
-import { Supplier } from './schema';
+import { Customer } from './schema.js';
+import { Employee } from './schema.js';
+import { Order } from './schema.js';
+import { OrderDetail } from './schema.js';
+import { Product } from './schema.js';
+import { Supplier } from './schema.js';
 
 dotenv.config();
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
