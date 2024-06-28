@@ -16,7 +16,7 @@
     "drizzle": "tsx ./src/drizzle/benchmark-pg.ts",
     "orange": "tsx ./src/orange/benchmark-pg.ts",
     "prisma": "tsx ./src/prisma/benchmark-pg.ts",
-    "mikroorm": "tsx ./src/mikro-orm/benchmark-pg.ts",
+    "mikroorm": "node ./dist/mikro-orm/benchmark-pg.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

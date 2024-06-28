@@ -1,5 +1,5 @@
 import { exit } from 'node:process';
-import postgres from './postgres'
+import postgres from './postgres.js'
 import dotenv from 'dotenv';
 dotenv.config();;
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
