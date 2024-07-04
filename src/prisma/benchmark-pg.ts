@@ -6,7 +6,7 @@ const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 const prisma = new PrismaClient({
     datasources: {
         db: {
-            url: `${process.env.POSTGRES_URL}?connection_limit=1`,
+            url: `${process.env.POSTGRES_URL}?connection_limit=10`,
         },
     },
     log: [
