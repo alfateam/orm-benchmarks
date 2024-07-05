@@ -3,7 +3,7 @@ import postgres from "postgres";
 import * as schema from './schema';
 
 
-export const connection = postgres('postgres://postgres:postgres@postgres/postgres', { max: 3 });
+export const connection = postgres('postgres://postgres:postgres@postgres/postgres', { max: 4 });
 
 export const db = drizzle(connection, {
   schema,
