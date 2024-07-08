@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: sleep infinity
+    command: /bin/sh -c "sed -i 's/localhost:15432/postgres/g' /workspace/.env && sleep infinity"
     volumes:
       - ..:/workspace:cached
       - try-node-node_modules:/workspace/node_modules
