@@ -1,4 +1,4 @@
 import map from './map';
 
-export default map.postgres('postgres://postgres:postgres@postgres/postgres', { size: 1});
+export default map.postgres('postgres://postgres:postgres@postgres/postgres', { size: 10});
 
