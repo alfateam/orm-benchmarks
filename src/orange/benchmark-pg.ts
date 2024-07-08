@@ -1,7 +1,6 @@
 import { exit } from 'node:process';
 import pg from './postgres';
-import dotenv from 'dotenv';
-dotenv.config();;
+
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 // for sql logging:
 // import orange from 'orange-orm';
