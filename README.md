@@ -24,13 +24,13 @@ You can run it locally with the following steps:
 3. **Running all benchmarks**:
    - ```npm run benchmark```
 
-4. **To run single benchmarks for poolsize = 1**
+4. **To run single benchmark for poolsize = 1**
    - ```npm run drizzle:pool1```
    - ```npm run orange:pool1```
    - ```npm run prisma:pool1```
    - ```npm run mikroorm:pool1``` (Does not work yet)
 
-5. **To run single benchmarks for poolsize = 10**
+5. **To run single benchmark for poolsize = 10**
    - ```npm run drizzle:pool10```
    - ```npm run orange:pool10```
    - ```npm run prisma:pool10```
