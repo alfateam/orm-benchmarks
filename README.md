@@ -9,17 +9,13 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 | Orange | 24.754s       | 24.541s        |
 | Drizzle| 31.847s       | 26.013s        |
 | Prisma | 49.419s       | 33.730s        |
-## Prerequisites
-
-- Docker must be installed on your machine.
-
 ## Steps to Run
 
 The github action will always run remotely on push.  
-But you can also run it locally with the following steps:  
+You can run it locally with the following steps:  
 
 1. **Start the database in Docker**  
-   Make sure Docker is running on your machine.
+   Make sure Docker is installed and running on your machine.
    - ```npm run db:start```
 
 2. Install dependencies
