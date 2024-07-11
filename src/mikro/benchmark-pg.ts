@@ -1,21 +1,28 @@
 import 'reflect-metadata';
-import { MikroORM, ReflectMetadataProvider } from '@mikro-orm/core';
+import { MikroORM, EntitySchema } from '@mikro-orm/core';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import dotenv from 'dotenv';
-import { Customer } from './schema';
-import { Employee } from './schema';
-import { Order } from './schema';
-import { OrderDetail } from './schema';
-import { Product } from './schema';
-import { Supplier } from './schema';
+
+import { Customer, CustomerSchema } from './schema';
+import { Employee, EmployeeSchema } from './schema';
+import { Order, OrderSchema } from './schema';
+import { OrderDetail, OrderDetailSchema } from './schema';
+import { Product, ProductSchema } from './schema';
+import { Supplier, SupplierSchema } from './schema';
 
 dotenv.config();
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 
 async function main() {
   const orm = await MikroORM.init({
-    metadataProvider: ReflectMetadataProvider,
-    entities: [Customer, Employee, Order, OrderDetail, Product, Supplier],
+    // metadataProvider: TSONMetadataProvider,
+    entities: [CustomerSchema, EmployeeSchema, OrderSchema, OrderDetailSchema, ProductSchema, SupplierSchema],
+    discovery: {
+      warnWhenNoEntities: true,
+      requireEntitiesArray: false,
+      alwaysAnalyseProperties: true,
+    },
+    // entities: [Customer, Employee, Order, OrderDetail, Product, Supplier],
     dbName: 'your_db_name',
     driver: PostgreSqlDriver,
     clientUrl: `${process.env.POSTGRES_URL}`,
@@ -43,7 +50,7 @@ async function main() {
     console.time('mikroORM');
     const promises = [];
     for (let i = 0; i < ITERATIONS; i++) {
-      const p = em.find(Order, {}, {
+      const p = em.find(Order, {}, {        
         populate: ['customer', 'employee', 'orderDetails.product.supplier'],
       }).then(JSON.stringify);
       promises.push(p);
