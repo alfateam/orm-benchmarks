@@ -35,7 +35,6 @@ export const CustomerSchema = new EntitySchema<Customer>({
   },
 });
 
-// OrderDetail entity
 export class OrderDetail {
   unitPrice!: number;
   quantity!: number;
@@ -53,14 +52,13 @@ export const OrderDetailSchema = new EntitySchema<OrderDetail>({
     unitPrice: { type: 'number', fieldName: 'unit_price' },
     quantity: { type: 'number' },
     discount: { type: 'number' },
-    // orderId: { type: 'string', primary: true},
-    // productId: { type: 'string', primary: true },
+    orderId: { type: 'string', primary: true, persist: false},
+    productId: { type: 'string', primary: true, persist: false },
     order: { kind: 'm:1', entity: () => Order,  fieldName: 'order_id', primary: true  },
     product: { kind: 'm:1', entity: () => Product, fieldName: 'product_id', primary: true },
   },
 });
 
-// Employee entity
 export class Employee {
   id!: string;
   lastName!: string;
@@ -116,8 +114,8 @@ export class Order {
   shipRegion?: string;
   shipPostalCode?: string;
   shipCountry!: string;
-  // customerId!: string;
-  // employeeId!: string;
+  customerId!: string;
+  employeeId!: string;
   customer!: Rel<Customer>;
   employee!: Rel<Employee>;
   orderDetails = new Collection<OrderDetail>(this);
@@ -138,15 +136,14 @@ export const OrderSchema = new EntitySchema<Order>({
     shipRegion: { type: 'string', nullable: true, fieldName: 'ship_region' },
     shipPostalCode: { type: 'string', nullable: true, fieldName: 'ship_postal_code' },
     shipCountry: { type: 'string', fieldName: 'ship_country' },
-    // customerId: { type: 'string', fieldName: 'customer_id' },
-    // employeeId: { type: 'string' },
+    customerId: { type: 'string', fieldName: 'customer_id', persist: false },
+    employeeId: { type: 'string', fieldName: 'employee_id', persist: false },
     customer: { kind: 'm:1', entity: () => Customer, fieldName:  'customer_id' },
     employee: { kind: 'm:1', entity: () => Employee, fieldName: 'employee_id' },
     orderDetails: { kind: '1:m', entity: () => OrderDetail, mappedBy: 'order' },
   },
 });
 
-// Product entity
 export class Product {
   id!: string;
   name!: string;
@@ -173,13 +170,12 @@ export const ProductSchema = new EntitySchema<Product>({
     unitsOnOrder: { type: 'number', fieldName: 'units_on_order' },
     reorderLevel: { type: 'number', fieldName: 'reorder_level' },
     discontinued: { type: 'number' },
-    // supplierId: { type: 'string', fieldName: 'supplier_id' },
+    supplierId: { type: 'string', fieldName: 'supplier_id', persist: false },
     supplier: { kind: 'm:1', entity: () => Supplier, fieldName: 'supplier_id' },
     orderDetails: { kind: '1:m', entity: () => OrderDetail, mappedBy: 'product' },
   },
 });
 
-// Supplier entity
 export class Supplier {
   id!: string;
   companyName!: string;

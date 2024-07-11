@@ -52,7 +52,10 @@ async function main() {
     //to initate possible lazy loaded pool    
     const promises = [];
     for (let i = 0; i < ITERATIONS; i++) {        
-        promises.push(em.find(Order, {}, { limit: 1 }));
+        promises.push(em.find(Order, {}, {
+          limit: 1,
+          populate: ['customer', 'employee', 'orderDetails.product.supplier'],
+           }));
     }    
     await Promise.all(promises);    
   }
