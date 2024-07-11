@@ -1,14 +1,14 @@
 # ORM Benchmarks for Orange, Drizzle and Prisma
 The numbers are from the latest run in the Node 22 Bullseye image.  
-I am using computer 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz.   
-The CPU has 4 physical cores, and each core supports 2 threads, making a total of 8 logical processors. 
+I used computer 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz.   
+The CPU had 4 physical cores, and each core supports 2 threads, making a total of 8 logical processors. 
 ## Results  
+**PostgreSQL**
 |        | Pool size = 1 | Pool size = 10 |
 |--------|---------------|----------------|
 | Orange | 24.754s       | 24.541s        |
 | Drizzle| 31.847s       | 26.013s        |
 | Prisma | 49.419s       | 33.730s        |
-
 ## Prerequisites
 
 - Docker must be installed on your machine.
