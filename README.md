@@ -1,43 +1,45 @@
 # ORM Benchmarks for Orange, Drizzle and Prisma
-This guide explains how to run the project with Postgres using the Remote - Containers extension in Visual Studio Code.
-The benchmarks will run in the github action as well. The benchmark numbers are from the latest run in github actions.
-## Latest benchmarking
-Orange: 3.747s  
-Drizzle: 4.005s  
-Prisma: 9.067s  
+The numbers are from the latest run in the Node 22 Bullseye image.  
+I am using computer 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz.   
+This has a CPU with 4 physical cores, and each core supports 2 threads, making a total of 8 logical processors. 
+## Latest benchmarking  
+|        | Pool size = 1 | Pool size = 10 |
+|--------|---------------|----------------|
+| Orange | 24.754s       | 24.541s        |
+| Drizzle| 31.847s       | 26.013s        |
+| Prisma | 49.419s       | 33.730s        |
 
 ## Prerequisites
 
 - Docker must be installed on your machine.
-- Visual Studio Code (VS Code) must be installed.
-- The Remote - Containers extension should be installed in VS Code.
 
 ## Steps to Run
 
 The github action will always run remotely on push.  
 But you can also run it locally with the following steps:  
 
-1. **Start Docker**: Make sure Docker is running on your machine.
+1. **Start the database in Docker**  
+   Make sure Docker is running on your machine.
+   - ```npm run db:start```
 
-2. **Open Project in VS Code**:
-   - Open your project folder in VS Code.
-
-3. **Reopen in Container**:
-   - Press `F1` to open the command palette.
-   - Type and select "Remote-Containers: Reopen in Container".
-   - VS Code will build the container based on your configuration files. This may take a few minutes.
-
-4. **Running benchmarks**:
-   - Develop within the container. All defined extensions and settings in `devcontainer.json` will be available.
+2. Install dependencies
    - ```npm install```
-   - ```npm run init``` to init database 
-   - ```npm run drizzle```
-   - ```npm run orange```
-   - ```npm run prisma```
-   - ```npm run mikroorm``` (Not working yet)
 
-## Note
+3. **Running all benchmarks**:
+   - ```npm run benchmark```
 
-Always use the "Reopen in Container" option in VS Code to work within the Docker container environment for consistency and reproducibility.
+4. **To run single benchmarks for poolsize = 1**
+   - ```npm run drizzle:pool1```
+   - ```npm run orange:pool1```
+   - ```npm run prisma:pool1```
+   - ```npm run mikroorm:pool1``` (Does not work yet)
 
+5. **To run single benchmarks for poolsize = 10**
+   - ```npm run drizzle:pool10```
+   - ```npm run orange:pool10```
+   - ```npm run prisma:pool10```
+   - ```npm run mikroorm:pool10``` (Does not work yet)
+
+6. Stop the Docker container
+   - ```npm run db:stop```
 Happy Testing!
