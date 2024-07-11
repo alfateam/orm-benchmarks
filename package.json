@@ -33,11 +33,11 @@
   "dependencies": {
     "@mikro-orm/core": "^6.2.9",
     "@mikro-orm/postgresql": "^6.2.9",
-    "@prisma/client": "^5.15.1",
+    "@prisma/client": "^5.16.2",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.31.2",
-    "orange-orm": "^4.4.0-beta.1",
+    "drizzle-orm": "^0.32.0",
+    "orange-orm": "^4.4.0",
     "pg": "^8.12.0",
     "postgres": "^3.4.4",
     "reflect-metadata": "^0.2.2"
