@@ -1,7 +1,7 @@
 import { EntitySchema, Collection, type Rel } from '@mikro-orm/core';
 
 // Customer entity
-export class Customer {
+export class Customer {  
   id!: string;
   companyName!: string;
   contactName!: string;
@@ -18,6 +18,7 @@ export class Customer {
 
 export const CustomerSchema = new EntitySchema<Customer>({
   name: 'Customer',
+  tableName: 'customers',
   properties: {
     id: { type: 'string', primary: true },
     companyName: { type: 'string', fieldName: 'company_name' },
@@ -47,14 +48,15 @@ export class OrderDetail {
 
 export const OrderDetailSchema = new EntitySchema<OrderDetail>({
   name: 'OrderDetail',
+  tableName: 'order_details',
   properties: {
     unitPrice: { type: 'number', fieldName: 'unit_price' },
     quantity: { type: 'number' },
     discount: { type: 'number' },
-    orderId: { type: 'string', primary: true, fieldName: 'order_id' },
-    productId: { type: 'string', primary: true, fieldName: 'product_id' },
-    order: { kind: 'm:1', entity: () => Order },
-    product: { kind: 'm:1', entity: () => Product },
+    // orderId: { type: 'string', primary: true},
+    // productId: { type: 'string', primary: true },
+    order: { kind: 'm:1', entity: () => Order,  fieldName: 'order_id', primary: true  },
+    product: { kind: 'm:1', entity: () => Product, fieldName: 'product_id', primary: true },
   },
 });
 
@@ -80,6 +82,7 @@ export class Employee {
 
 export const EmployeeSchema = new EntitySchema<Employee>({
   name: 'Employee',
+  tableName: 'employees',
   properties: {
     id: { type: 'string', primary: true },
     lastName: { type: 'string', fieldName: 'last_name' },
@@ -113,8 +116,8 @@ export class Order {
   shipRegion?: string;
   shipPostalCode?: string;
   shipCountry!: string;
-  customerId!: string;
-  employeeId!: string;
+  // customerId!: string;
+  // employeeId!: string;
   customer!: Rel<Customer>;
   employee!: Rel<Employee>;
   orderDetails = new Collection<OrderDetail>(this);
@@ -122,6 +125,7 @@ export class Order {
 
 export const OrderSchema = new EntitySchema<Order>({
   name: 'Order',
+  tableName: 'orders',
   properties: {
     id: { type: 'string', primary: true },
     orderDate: { type: 'Date', fieldName: 'order_date' },
@@ -134,10 +138,10 @@ export const OrderSchema = new EntitySchema<Order>({
     shipRegion: { type: 'string', nullable: true, fieldName: 'ship_region' },
     shipPostalCode: { type: 'string', nullable: true, fieldName: 'ship_postal_code' },
     shipCountry: { type: 'string', fieldName: 'ship_country' },
-    customerId: { type: 'string', fieldName: 'customer_id' },
-    employeeId: { type: 'string', fieldName: 'employee_id' },
-    customer: { kind: 'm:1', entity: () => Customer },
-    employee: { kind: 'm:1', entity: () => Employee },
+    // customerId: { type: 'string', fieldName: 'customer_id' },
+    // employeeId: { type: 'string' },
+    customer: { kind: 'm:1', entity: () => Customer, fieldName:  'customer_id' },
+    employee: { kind: 'm:1', entity: () => Employee, fieldName: 'employee_id' },
     orderDetails: { kind: '1:m', entity: () => OrderDetail, mappedBy: 'order' },
   },
 });
@@ -159,6 +163,7 @@ export class Product {
 
 export const ProductSchema = new EntitySchema<Product>({
   name: 'Product',
+  tableName: 'products',
   properties: {
     id: { type: 'string', primary: true },
     name: { type: 'string' },
@@ -168,8 +173,8 @@ export const ProductSchema = new EntitySchema<Product>({
     unitsOnOrder: { type: 'number', fieldName: 'units_on_order' },
     reorderLevel: { type: 'number', fieldName: 'reorder_level' },
     discontinued: { type: 'number' },
-    supplierId: { type: 'string', fieldName: 'supplier_id' },
-    supplier: { kind: 'm:1', entity: () => Supplier },
+    // supplierId: { type: 'string', fieldName: 'supplier_id' },
+    supplier: { kind: 'm:1', entity: () => Supplier, fieldName: 'supplier_id' },
     orderDetails: { kind: '1:m', entity: () => OrderDetail, mappedBy: 'product' },
   },
 });
@@ -191,6 +196,7 @@ export class Supplier {
 
 export const SupplierSchema = new EntitySchema<Supplier>({
   name: 'Supplier',
+  tableName: 'suppliers',
   properties: {
     id: { type: 'string', primary: true },
     companyName: { type: 'string', fieldName: 'company_name' },
