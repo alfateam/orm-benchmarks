@@ -1,13 +1,15 @@
 import { exit } from 'node:process';
 import pg from './postgres';
+import orange from 'orange-orm';
 
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 const ROUNDS = Number.parseInt(process.env.ROUNDS);
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE)
+const LOG = process.env.LOG === 'true';
 
 // for sql logging:
-// import orange from 'orange-orm';
-// orange.on('query', console.dir)
+if (LOG)
+    orange.on('query', console.dir)
 
 benchmark();
 

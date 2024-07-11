@@ -6,9 +6,10 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 **PostgreSQL**
 |        | Pool size = 1 | Pool size = 10 |
 |--------|---------------|----------------|
-| Orange | 24.754s       | 24.541s        |
-| Drizzle| 31.847s       | 26.013s        |
-| Prisma | 49.419s       | 33.730s        |
+| Orange | 24.754 s       | 24.541 s        |
+| Drizzle| 31.847 s       | 26.013 s        |
+| Prisma | 49.419 s       | 33.730 s        |
+| Mikro  | 2:05.736 min     | 1:58.967 min|
 ## Steps to Run
 
 The github action will always run remotely on push.  

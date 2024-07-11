@@ -4,6 +4,7 @@ dotenv.config();
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 const ROUNDS = Number.parseInt(process.env.ROUNDS);
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
+const LOG = process.env.LOG === 'true';
 
 const prisma = new PrismaClient({
     datasources: {
@@ -11,22 +12,20 @@ const prisma = new PrismaClient({
             url: `${process.env.POSTGRES_URL}?connection_limit=${POOLSIZE}`,
         },
     },
-    log: [
-        // { emit: 'event', level: 'query' },        
-    ],
+    log: LOG ? [{ emit: 'event', level: 'query' }] : undefined
 });
 
 
-// prisma.$on('query', (e) => {
-//     console.log('Query: ' + e.query);
-//     console.log('Params: ' + e.params);
-//     console.log('Duration: ' + e.duration + 'ms');
-//   });
+prisma.$on('query', (e) => {
+    console.log('Query: ' + e.query);
+    console.log('Params: ' + e.params);
+    console.log('Duration: ' + e.duration + 'ms');
+  });
 
 benchmark();
 
 async function benchmark() {
-    await warmup();
+    // await warmup();
     console.time(`prisma:pool ${POOLSIZE}`);
     for (let i = 0; i < ROUNDS; i++) {
         await getRowsWithRelations();        

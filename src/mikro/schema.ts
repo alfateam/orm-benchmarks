@@ -1,250 +1,209 @@
-import { Entity, PrimaryKey, Property, ManyToOne, OneToMany, Collection, Index, EntityRepositoryType, Type } from '@mikro-orm/core';
-import { EntityRepository } from '@mikro-orm/postgresql';
+import { EntitySchema, Collection, type Rel } from '@mikro-orm/core';
 
-@Entity({ tableName: 'customers' })
-export class Customer {
-
-  @PrimaryKey({ name: 'id' })
-  id: string;
-
-  @Property({ name: 'company_name' })
-  companyName: string;
-
-  @Property({ name: 'contact_name' })
-  contactName: string;
-
-  @Property({ name: 'contact_title' })
-  contactTitle: string;
-
-  @Property({ name: 'address' })
-  address: string;
-
-  @Property({ name: 'city' })
-  city: string;
-
-  @Property({ name: 'postal_code', nullable: true })
+// Customer entity
+export class Customer {  
+  id!: string;
+  companyName!: string;
+  contactName!: string;
+  contactTitle!: string;
+  address!: string;
+  city!: string;
   postalCode?: string;
-
-  @Property({ name: 'region', nullable: true })
   region?: string;
-
-  @Property({ name: 'country' })
-  country: string;
-
-  @Property({ name: 'phone' })
-  phone: string;
-
-  @Property({ name: 'fax', nullable: true })
+  country!: string;
+  phone!: string;
   fax?: string;
-
-  @OneToMany(() => Order, order => order.customer)
   orders = new Collection<Order>(this);
 }
 
-@Entity({ tableName: 'order_details' })
-@Index({ properties: ['orderId', 'productId'], unique: true })
+export const CustomerSchema = new EntitySchema({
+  class: Customer,
+  tableName: 'customers',
+  properties: {
+    id: { type: 'string', primary: true },
+    companyName: { type: 'string', fieldName: 'company_name' },
+    contactName: { type: 'string', fieldName: 'contact_name' },
+    contactTitle: { type: 'string', fieldName: 'contact_title' },
+    address: { type: 'string' },
+    city: { type: 'string' },
+    postalCode: { type: 'string', nullable: true, fieldName: 'postal_code' },
+    region: { type: 'string', nullable: true },
+    country: { type: 'string' },
+    phone: { type: 'string' },
+    fax: { type: 'string', nullable: true },
+    orders: { kind: '1:m', entity: () => Order, mappedBy: 'customer' },
+  },
+});
+
 export class OrderDetail {
-
-  @Property({ name: 'unit_price' })
-  unitPrice: number;
-
-  @Property({ name: 'quantity' })
-  quantity: number;
-
-  @Property({ name: 'discount' })
-  discount: number;
-
-  @PrimaryKey({ name: 'order_id' })
-  orderId: string;
-
-  @PrimaryKey({ name: 'product_id' })
-  productId: string;
-
-  @ManyToOne(() => Order, { fieldName: 'order_id' })
-  order: Order;
-
-  @ManyToOne(() => Product, { fieldName: 'product_id' })
-  product: Product;
+  unitPrice!: number;
+  quantity!: number;
+  discount!: number;
+  orderId!: string;
+  productId!: string;
+  order!: Rel<Order>;
+  product!: Rel<Product>;
 }
 
-@Entity({ tableName: 'employees' })
-@Index({ properties: ['recipientId'] })
+export const OrderDetailSchema = new EntitySchema({
+  class: OrderDetail,
+  tableName: 'order_details',
+  properties: {
+    unitPrice: { type: 'number', fieldName: 'unit_price' },
+    quantity: { type: 'number' },
+    discount: { type: 'number' },
+    orderId: { type: 'string', primary: true, persist: false},
+    productId: { type: 'string', primary: true, persist: false },
+    order: { kind: 'm:1', entity: () => Order,  fieldName: 'order_id', primary: true  },
+    product: { kind: 'm:1', entity: () => Product, fieldName: 'product_id', primary: true },
+  },
+});
+
 export class Employee {
-
-  @PrimaryKey({ name: 'id' })
-  id: string;
-
-  @Property({ name: 'last_name' })
-  lastName: string;
-
-  @Property({ name: 'first_name', nullable: true })
+  id!: string;
+  lastName!: string;
   firstName?: string;
-
-  @Property({ name: 'title' })
-  title: string;
-
-  @Property({ name: 'title_of_courtesy' })
-  titleOfCourtesy: string;
-
-  @Property({ name: 'birth_date' })
-  birthDate: Date;
-
-  @Property({ name: 'hire_date' })
-  hireDate: Date;
-
-  @Property({ name: 'address' })
-  address: string;
-
-  @Property({ name: 'city' })
-  city: string;
-
-  @Property({ name: 'postal_code' })
-  postalCode: string;
-
-  @Property({ name: 'country' })
-  country: string;
-
-  @Property({ name: 'home_phone' })
-  homePhone: string;
-
-  @Property({ name: 'extension' })
-  extension: number;
-
-  @Property({ name: 'notes' })
-  notes: string;
-
-  @Property({ name: 'recipient_id', nullable: true })
+  title!: string;
+  titleOfCourtesy!: string;
+  birthDate!: Date;
+  hireDate!: Date;
+  address!: string;
+  city!: string;
+  postalCode!: string;
+  country!: string;
+  homePhone!: string;
+  extension!: number;
+  notes!: string;
   recipientId?: string;
-
-  @OneToMany(() => Order, order => order.employee)
   orders = new Collection<Order>(this);
 }
 
-@Entity({ tableName: 'orders' })
-@Index({ properties: ['customerId'] })
-@Index({ properties: ['employeeId'] })
+export const EmployeeSchema = new EntitySchema({
+  class: Employee,
+  tableName: 'employees',
+  properties: {
+    id: { type: 'string', primary: true },
+    lastName: { type: 'string', fieldName: 'last_name' },
+    firstName: { type: 'string', nullable: true, fieldName: 'first_name' },
+    title: { type: 'string' },
+    titleOfCourtesy: { type: 'string', fieldName: 'title_of_courtesy' },
+    birthDate: { type: 'Date', fieldName: 'birth_date' },
+    hireDate: { type: 'Date', fieldName: 'hire_date' },
+    address: { type: 'string' },
+    city: { type: 'string' },
+    postalCode: { type: 'string', fieldName: 'postal_code' },
+    country: { type: 'string' },
+    homePhone: { type: 'string', fieldName: 'home_phone' },
+    extension: { type: 'number' },
+    notes: { type: 'string' },
+    recipientId: { type: 'string', nullable: true, fieldName: 'recipient_id' },
+    orders: { kind: '1:m', entity: () => Order, mappedBy: 'employee' },
+  },
+});
+
+// Order entity
 export class Order {
-
-  @PrimaryKey({ name: 'id' })
-  id: string;
-
-  @Property({ name: 'order_date' })
-  orderDate: Date;
-
-  @Property({ name: 'required_date' })
-  requiredDate: Date;
-
-  @Property({ name: 'shipped_date', nullable: true })
+  id!: string;
+  orderDate!: Date;
+  requiredDate!: Date;
   shippedDate?: Date;
-
-  @Property({ name: 'ship_via' })
-  shipVia: number;
-
-  @Property({ name: 'freight' })
-  freight: number;
-
-  @Property({ name: 'ship_name' })
-  shipName: string;
-
-  @Property({ name: 'ship_city' })
-  shipCity: string;
-
-  @Property({ name: 'ship_region', nullable: true })
+  shipVia!: number;
+  freight!: number;
+  shipName!: string;
+  shipCity!: string;
   shipRegion?: string;
-
-  @Property({ name: 'ship_postal_code', nullable: true })
   shipPostalCode?: string;
-
-  @Property({ name: 'ship_country' })
-  shipCountry: string;
-
-  @Property({ name: 'customer_id' })
-  customerId: string;
-
-  @Property({ name: 'employee_id' })
-  employeeId: string;
-
-  @ManyToOne(() => Customer, { fieldName: 'customer_id' })
-  customer: Customer;
-
-  @ManyToOne(() => Employee, { fieldName: 'employee_id' })
-  employee: Employee;
-
-  @OneToMany(() => OrderDetail, orderDetail => orderDetail.order)
+  shipCountry!: string;
+  customerId!: string;
+  employeeId!: string;
+  customer!: Rel<Customer>;
+  employee!: Rel<Employee>;
   orderDetails = new Collection<OrderDetail>(this);
 }
 
-@Entity({ tableName: 'products' })
-@Index({ properties: ['supplierId'] })
+export const OrderSchema = new EntitySchema({
+  class: Order,
+  tableName: 'orders',
+  properties: {
+    id: { type: 'string', primary: true },
+    orderDate: { type: 'Date', fieldName: 'order_date' },
+    requiredDate: { type: 'Date', fieldName: 'required_date' },
+    shippedDate: { type: 'Date', nullable: true, fieldName: 'shipped_date' },
+    shipVia: { type: 'number', fieldName: 'ship_via' },
+    freight: { type: 'number' },
+    shipName: { type: 'string', fieldName: 'ship_name' },
+    shipCity: { type: 'string', fieldName: 'ship_city' },
+    shipRegion: { type: 'string', nullable: true, fieldName: 'ship_region' },
+    shipPostalCode: { type: 'string', nullable: true, fieldName: 'ship_postal_code' },
+    shipCountry: { type: 'string', fieldName: 'ship_country' },
+    customerId: { type: 'string', fieldName: 'customer_id', persist: false },
+    employeeId: { type: 'string', fieldName: 'employee_id', persist: false },
+    customer: { kind: 'm:1', entity: () => Customer, fieldName:  'customer_id' },
+    employee: { kind: 'm:1', entity: () => Employee, fieldName: 'employee_id' },
+    orderDetails: { kind: '1:m', entity: () => OrderDetail, mappedBy: 'order' },
+  },
+});
+
 export class Product {
-
-  @PrimaryKey({ name: 'id' })
-  id: string;
-
-  @Property({ name: 'name' })
-  name: string;
-
-  @Property({ name: 'qt_per_unit' })
-  qtPerUnit: string;
-
-  @Property({ name: 'unit_price' })
-  unitPrice: number;
-
-  @Property({ name: 'units_in_stock' })
-  unitsInStock: number;
-
-  @Property({ name: 'units_on_order' })
-  unitsOnOrder: number;
-
-  @Property({ name: 'reorder_level' })
-  reorderLevel: number;
-
-  @Property({ name: 'discontinued' })
-  discontinued: number;
-
-  @Property({ name: 'supplier_id' })
-  supplierId: string;
-
-  @ManyToOne(() => Supplier, { fieldName: 'supplier_id' })
-  supplier: Supplier;
-
-  @OneToMany(() => OrderDetail, orderDetail => orderDetail.product)
+  id!: string;
+  name!: string;
+  qtPerUnit!: string;
+  unitPrice!: number;
+  unitsInStock!: number;
+  unitsOnOrder!: number;
+  reorderLevel!: number;
+  discontinued!: number;
+  supplierId!: string;
+  supplier!: Rel<Supplier>;
   orderDetails = new Collection<OrderDetail>(this);
 }
 
-@Entity({ tableName: 'suppliers' })
+export const ProductSchema = new EntitySchema({
+  class: Product,
+  tableName: 'products',
+  properties: {
+    id: { type: 'string', primary: true },
+    name: { type: 'string' },
+    qtPerUnit: { type: 'string', fieldName: 'qt_per_unit' },
+    unitPrice: { type: 'number', fieldName: 'unit_price' },
+    unitsInStock: { type: 'number', fieldName: 'units_in_stock' },
+    unitsOnOrder: { type: 'number', fieldName: 'units_on_order' },
+    reorderLevel: { type: 'number', fieldName: 'reorder_level' },
+    discontinued: { type: 'number' },
+    supplierId: { type: 'string', fieldName: 'supplier_id', persist: false },
+    supplier: { kind: 'm:1', entity: () => Supplier, fieldName: 'supplier_id' },
+    orderDetails: { kind: '1:m', entity: () => OrderDetail, mappedBy: 'product' },
+  },
+});
+
 export class Supplier {
-
-  @PrimaryKey({ name: 'id' })
-  id: string;
-
-  @Property({ name: 'company_name' })
-  companyName: string;
-
-  @Property({ name: 'contact_name' })
-  contactName: string;
-
-  @Property({ name: 'contact_title' })
-  contactTitle: string;
-
-  @Property({ name: 'address' })
-  address: string;
-
-  @Property({ name: 'city' })
-  city: string;
-
-  @Property({ name: 'region', nullable: true })
+  id!: string;
+  companyName!: string;
+  contactName!: string;
+  contactTitle!: string;
+  address!: string;
+  city!: string;
   region?: string;
-
-  @Property({ name: 'postal_code' })
-  postalCode: string;
-
-  @Property({ name: 'country' })
-  country: string;
-
-  @Property({ name: 'phone' })
-  phone: string;
-
-  @OneToMany(() => Product, product => product.supplier)
+  postalCode!: string;
+  country!: string;
+  phone!: string;
   products = new Collection<Product>(this);
 }
+
+export const SupplierSchema = new EntitySchema({
+  class: Supplier,
+  tableName: 'suppliers',
+  properties: {
+    id: { type: 'string', primary: true },
+    companyName: { type: 'string', fieldName: 'company_name' },
+    contactName: { type: 'string', fieldName: 'contact_name' },
+    contactTitle: { type: 'string', fieldName: 'contact_title' },
+    address: { type: 'string' },
+    city: { type: 'string' },
+    region: { type: 'string', nullable: true },
+    postalCode: { type: 'string', fieldName: 'postal_code' },
+    country: { type: 'string' },
+    phone: { type: 'string' },
+    products: { kind: '1:m', entity: () => Product, mappedBy: 'supplier' },
+  },
+});
