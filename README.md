@@ -28,13 +28,13 @@ You can run it locally with the following steps:
    - ```npm run drizzle:pool1```
    - ```npm run orange:pool1```
    - ```npm run prisma:pool1```
-   - ```npm run mikro-orm:pool1``` (Does not work yet)
+   - ```npm run mikro:pool1``` (Does not work yet)
 
 5. **To run single benchmark for poolsize = 10**
    - ```npm run drizzle:pool10```
    - ```npm run orange:pool10```
    - ```npm run prisma:pool10```
-   - ```npm run mikro-orm:pool10``` (Does not work yet)
+   - ```npm run mikro:pool10``` (Does not work yet)
 
 6. Stop the Docker container
    - ```npm run db:stop```
