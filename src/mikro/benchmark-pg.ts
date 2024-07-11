@@ -66,7 +66,8 @@ async function main() {
     const promises = [];
     for (let i = 0; i < ITERATIONS; i++) {
       const p = em.find(Order, {}, {        
-        populate: ['customer', 'employee', 'orderDetails.product.supplier'],        
+        populate: ['customer', 'employee', 'orderDetails.product.supplier'],
+        strategy: 'select-in',      
       }).then(JSON.stringify);
       promises.push(p);
     }
