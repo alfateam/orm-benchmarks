@@ -15,6 +15,7 @@ dotenv.config();
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 const ROUNDS = Number.parseInt(process.env.ROUNDS);
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE)
+const LOG = process.env.LOG === 'true';
 
 async function main() {
   const orm = await MikroORM.init({
@@ -31,7 +32,7 @@ async function main() {
       min: POOLSIZE,
       max: POOLSIZE
     },
-    debug: false,
+    debug: LOG,
   });
 
   await benchmark();
