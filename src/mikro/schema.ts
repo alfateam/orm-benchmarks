@@ -30,7 +30,7 @@ export const CustomerSchema = new EntitySchema<Customer>({
     country: { type: 'string' },
     phone: { type: 'string' },
     fax: { type: 'string', nullable: true },
-    orders: { reference: '1:m', entity: () => Order, mappedBy: 'customer' },
+    orders: { kind: '1:m', entity: () => Order, mappedBy: 'customer' },
   },
 });
 
@@ -53,8 +53,8 @@ export const OrderDetailSchema = new EntitySchema<OrderDetail>({
     discount: { type: 'number' },
     orderId: { type: 'string', primary: true, fieldName: 'order_id' },
     productId: { type: 'string', primary: true, fieldName: 'product_id' },
-    order: { reference: 'm:1', entity: () => Order },
-    product: { reference: 'm:1', entity: () => Product },
+    order: { kind: 'm:1', entity: () => Order },
+    product: { kind: 'm:1', entity: () => Product },
   },
 });
 
@@ -96,7 +96,7 @@ export const EmployeeSchema = new EntitySchema<Employee>({
     extension: { type: 'number' },
     notes: { type: 'string' },
     recipientId: { type: 'string', nullable: true, fieldName: 'recipient_id' },
-    orders: { reference: '1:m', entity: () => Order, mappedBy: 'employee' },
+    orders: { kind: '1:m', entity: () => Order, mappedBy: 'employee' },
   },
 });
 
@@ -136,9 +136,9 @@ export const OrderSchema = new EntitySchema<Order>({
     shipCountry: { type: 'string', fieldName: 'ship_country' },
     customerId: { type: 'string', fieldName: 'customer_id' },
     employeeId: { type: 'string', fieldName: 'employee_id' },
-    customer: { reference: 'm:1', entity: () => Customer },
-    employee: { reference: 'm:1', entity: () => Employee },
-    orderDetails: { reference: '1:m', entity: () => OrderDetail, mappedBy: 'order' },
+    customer: { kind: 'm:1', entity: () => Customer },
+    employee: { kind: 'm:1', entity: () => Employee },
+    orderDetails: { kind: '1:m', entity: () => OrderDetail, mappedBy: 'order' },
   },
 });
 
@@ -169,8 +169,8 @@ export const ProductSchema = new EntitySchema<Product>({
     reorderLevel: { type: 'number', fieldName: 'reorder_level' },
     discontinued: { type: 'number' },
     supplierId: { type: 'string', fieldName: 'supplier_id' },
-    supplier: { reference: 'm:1', entity: () => Supplier },
-    orderDetails: { reference: '1:m', entity: () => OrderDetail, mappedBy: 'product' },
+    supplier: { kind: 'm:1', entity: () => Supplier },
+    orderDetails: { kind: '1:m', entity: () => OrderDetail, mappedBy: 'product' },
   },
 });
 
@@ -202,6 +202,6 @@ export const SupplierSchema = new EntitySchema<Supplier>({
     postalCode: { type: 'string', fieldName: 'postal_code' },
     country: { type: 'string' },
     phone: { type: 'string' },
-    products: { reference: '1:m', entity: () => Product, mappedBy: 'supplier' },
+    products: { kind: '1:m', entity: () => Product, mappedBy: 'supplier' },
   },
 });
