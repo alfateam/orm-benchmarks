@@ -1,4 +1,4 @@
-# ORM Benchmarks for Orange, Drizzle, Prisma and Mikro ORM
+# ORM Benchmarks for Orange, Drizzle, Prisma and MikroORM
 The numbers are from the latest run in the Node 22 Bullseye image.  
 I used computer 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz.   
 The CPU had 4 physical cores, and each core supports 2 threads, making a total of 8 logical processors. 
