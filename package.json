@@ -25,9 +25,9 @@
     "prisma": "npm run prisma:pool1 && npm run prisma:pool10",
     "prisma:pool1": "npm run init && cross-env POOLSIZE=1 tsx ./src/prisma/benchmark-pg.ts",
     "prisma:pool10": "npm run init && cross-env POOLSIZE=10 tsx ./src/prisma/benchmark-pg.ts",
-    "mikroorm": "npm run mikroorm:pool1 && npm run mikroorm:pool10",
-    "mikroorm:pool1": "npm run init && cross-env POOLSIZE=1 tsx ./src/mikroorm/benchmark-pg.ts",
-    "mikroorm:pool10": "npm run init && cross-env POOLSIZE=10 tsx ./src/mikroorm/benchmark-pg.ts",
+    "mikro": "npm run mikroorm:pool1 && npm run mikroorm:pool10",
+    "mikro:pool1": "npm run init && cross-env POOLSIZE=1 tsx ./src/mikro/benchmark-pg.ts",
+    "mikro:pool10": "npm run init && cross-env POOLSIZE=10 tsx ./src/mikro/benchmark-pg.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
