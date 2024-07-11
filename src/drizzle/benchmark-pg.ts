@@ -2,22 +2,31 @@ import { exit } from 'node:process';
 import postgres from './postgres'
 
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
+const ROUNDS = Number.parseInt(process.env.ROUNDS);
+const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 
 benchmark();
 
 async function benchmark() {
 	await warmup();
-	await getRowsWithRelations();
+	console.time(`drizzle:pool ${POOLSIZE}`);
+	for (let i = 0; i < ROUNDS; i++) {
+		await getRowsWithRelations();		
+	}
+	console.timeEnd(`drizzle:pool ${POOLSIZE}`)
 	exit(0);
 }
 
 async function warmup() {
 	//to initate possible lazy loaded pool
-	await postgres.query.customers.findFirst();
+	const promises = [];
+	for (let i = 0; i < ITERATIONS; i++) {
+        promises.push(postgres.query.customers.findFirst());
+    }
+	await Promise.all(promises);
 }
 
 async function getRowsWithRelations() {
-	console.time('drizzle');
 	const promises = [];
 	for (let i = 0; i < ITERATIONS; i++) {
 		const p = postgres.query.orders.findMany({
@@ -40,7 +49,6 @@ async function getRowsWithRelations() {
 		promises.push(p);
 	}
 	await Promise.all(promises);
-	console.timeEnd('drizzle')
 }
 
 

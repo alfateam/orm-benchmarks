@@ -2,11 +2,13 @@ import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
 dotenv.config();
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
+const ROUNDS = Number.parseInt(process.env.ROUNDS);
+const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 
 const prisma = new PrismaClient({
     datasources: {
         db: {
-            url: `${process.env.POSTGRES_URL}?connection_limit=10`,
+            url: `${process.env.POSTGRES_URL}?connection_limit=${POOLSIZE}`,
         },
     },
     log: [
@@ -25,16 +27,22 @@ benchmark();
 
 async function benchmark() {
     await warmup();
-    await getRowsWithRelations();
+    console.time(`prisma:pool ${POOLSIZE}`);
+    for (let i = 0; i < ROUNDS; i++) {
+        await getRowsWithRelations();        
+    }
+    console.timeEnd(`prisma:pool ${POOLSIZE}`);
     await prisma.$disconnect();
 }
 
 async function warmup() {
-    await prisma.order.findMany({ take: 1 });
+    const promises = [];
+    for (let i = 0; i < ITERATIONS; i++) {
+        promises.push(prisma.customer.findFirst());
+    }
 }
 
 async function getRowsWithRelations() {
-    console.time('prisma');
     const promises = [];
     for (let i = 0; i < ITERATIONS; i++) {
         const p = prisma.order.findMany({
@@ -55,6 +63,5 @@ async function getRowsWithRelations() {
         promises.push(p);
     }
     await Promise.all(promises);
-    console.timeEnd('prisma');
 
 }
