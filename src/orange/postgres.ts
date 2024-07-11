@@ -1,4 +1,8 @@
 import map from './map';
+import dotenv from 'dotenv';
+dotenv.config();
 
-export default map.postgres('postgres://postgres:postgres@postgres/postgres', { size: 1});
+const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
+
+export default map.postgres(process.env.POSTGRES_URL, { size: POOLSIZE});
 
