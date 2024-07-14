@@ -4,6 +4,7 @@ declare namespace NodeJS {
       ROUNDS: string;
       POOLSIZE: string;
       POSTGRES_URL: string;
+      MYSQL_URL: string;
     }
   }
   

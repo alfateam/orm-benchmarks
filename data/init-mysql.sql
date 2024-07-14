@@ -1,104 +1,115 @@
-drop schema if exists public cascade;
-create schema public;
+DROP TABLE IF EXISTS order_details;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS customers;
+DROP TABLE IF EXISTS employees;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS suppliers;
 
 CREATE TABLE customers (
-	"id" varchar(5) PRIMARY KEY NOT NULL,
-	"company_name" varchar NOT NULL,
-	"contact_name" varchar NOT NULL,
-	"contact_title" varchar NOT NULL,
-	"address" varchar NOT NULL,
-	"city" varchar NOT NULL,
-	"postal_code" varchar,
-	"region" varchar,
-	"country" varchar NOT NULL,
-	"phone" varchar NOT NULL,
-	"fax" varchar
+    id VARCHAR(5) PRIMARY KEY NOT NULL,
+    company_name VARCHAR(255) NOT NULL,
+    contact_name VARCHAR(255) NOT NULL,
+    contact_title VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    postal_code VARCHAR(255),
+    region VARCHAR(255),
+    country VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL,
+    fax VARCHAR(255)
 );
 
 CREATE TABLE order_details (
-	"unit_price" double precision NOT NULL,
-	"quantity" integer NOT NULL,
-	"discount" double precision NOT NULL,
-	"order_id" varchar NOT NULL,
-	"product_id" varchar NOT NULL
+    unit_price DOUBLE NOT NULL,
+    quantity INT NOT NULL,
+    discount DOUBLE NOT NULL,
+    order_id VARCHAR(255) NOT NULL,
+    product_id VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE employees (
-	"id" varchar PRIMARY KEY NOT NULL,
-	"last_name" varchar NOT NULL,
-	"first_name" varchar,
-	"title" varchar NOT NULL,
-	"title_of_courtesy" varchar NOT NULL,
-	"birth_date" date NOT NULL,
-	"hire_date" date NOT NULL,
-	"address" varchar NOT NULL,
-	"city" varchar NOT NULL,
-	"postal_code" varchar NOT NULL,
-	"country" varchar NOT NULL,
-	"home_phone" varchar NOT NULL,
-	"extension" integer NOT NULL,
-	"notes" text NOT NULL,
-	"recipient_id" varchar
+    id VARCHAR(255) PRIMARY KEY NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255),
+    title VARCHAR(255) NOT NULL,
+    title_of_courtesy VARCHAR(255) NOT NULL,
+    birth_date DATE NOT NULL,
+    hire_date DATE NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    postal_code VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
+    home_phone VARCHAR(255) NOT NULL,
+    extension INT NOT NULL,
+    notes TEXT NOT NULL,
+    recipient_id VARCHAR(255)
 );
 
 CREATE TABLE orders (
-	"id" varchar PRIMARY KEY NOT NULL,
-	"order_date" date NOT NULL,
-	"required_date" date NOT NULL,
-	"shipped_date" date,
-	"ship_via" integer NOT NULL,
-	"freight" double precision NOT NULL,
-	"ship_name" varchar NOT NULL,
-	"ship_city" varchar NOT NULL,
-	"ship_region" varchar,
-	"ship_postal_code" varchar,
-	"ship_country" varchar NOT NULL,
-	"customer_id" varchar NOT NULL,
-	"employee_id" varchar NOT NULL
+    id VARCHAR(255) PRIMARY KEY NOT NULL,
+    order_date DATE NOT NULL,
+    required_date DATE NOT NULL,
+    shipped_date DATE,
+    ship_via INT NOT NULL,
+    freight DOUBLE NOT NULL,
+    ship_name VARCHAR(255) NOT NULL,
+    ship_city VARCHAR(255) NOT NULL,
+    ship_region VARCHAR(255),
+    ship_postal_code VARCHAR(255),
+    ship_country VARCHAR(255) NOT NULL,
+    customer_id VARCHAR(255) NOT NULL,
+    employee_id VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE products (
-	"id" varchar PRIMARY KEY NOT NULL,
-	"name" varchar NOT NULL,
-	"qt_per_unit" varchar NOT NULL,
-	"unit_price" double precision NOT NULL,
-	"units_in_stock" integer NOT NULL,
-	"units_on_order" integer NOT NULL,
-	"reorder_level" integer NOT NULL,
-	"discontinued" integer NOT NULL,
-	"supplier_id" varchar NOT NULL
+    id VARCHAR(255) PRIMARY KEY NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    qt_per_unit VARCHAR(255) NOT NULL,
+    unit_price DOUBLE NOT NULL,
+    units_in_stock INT NOT NULL,
+    units_on_order INT NOT NULL,
+    reorder_level INT NOT NULL,
+    discontinued INT NOT NULL,
+    supplier_id VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE suppliers (
-	"id" varchar PRIMARY KEY NOT NULL,
-	"company_name" varchar NOT NULL,
-	"contact_name" varchar NOT NULL,
-	"contact_title" varchar NOT NULL,
-	"address" varchar NOT NULL,
-	"city" varchar NOT NULL,
-	"region" varchar,
-	"postal_code" varchar NOT NULL,
-	"country" varchar NOT NULL,
-	"phone" varchar NOT NULL
+    id VARCHAR(255) PRIMARY KEY NOT NULL,
+    company_name VARCHAR(255) NOT NULL,
+    contact_name VARCHAR(255) NOT NULL,
+    contact_title VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    city VARCHAR(255) NOT NULL,
+    region VARCHAR(255),
+    postal_code VARCHAR(255) NOT NULL,
+    country VARCHAR(255) NOT NULL,
+    phone VARCHAR(255) NOT NULL
 );
 
-CREATE INDEX IF NOT EXISTS "orderdetails_order_id_idx" ON "order_details" ("order_id");
-CREATE INDEX IF NOT EXISTS "orders_customer_id_idx" ON "orders" ("customer_id");
-CREATE INDEX IF NOT EXISTS "product_id_idx" ON "order_details" ("product_id");
-CREATE INDEX IF NOT EXISTS "recepient_idx" ON "employees" ("recipient_id");
-CREATE INDEX IF NOT EXISTS "supplier_idx" ON "products" ("supplier_id");
+CREATE INDEX orderdetails_order_id_idx ON order_details (order_id);
+CREATE INDEX orders_customer_id_idx ON orders (customer_id);
+CREATE INDEX product_id_idx ON order_details (product_id);
+CREATE INDEX recepient_idx ON employees (recipient_id);
+CREATE INDEX supplier_idx ON products (supplier_id);
 
-ALTER TABLE order_details ADD CONSTRAINT order_details_order_id_orders_id_fk FOREIGN KEY ("order_id") REFERENCES orders("id") ON DELETE cascade;
 
-ALTER TABLE order_details ADD CONSTRAINT order_details_product_id_products_id_fk FOREIGN KEY ("product_id") REFERENCES products("id") ON DELETE cascade;
+ALTER TABLE order_details 
+    ADD CONSTRAINT order_details_order_id_orders_id_fk FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE;
 
-ALTER TABLE employees ADD CONSTRAINT employees_recipient_id_employees_id_fk FOREIGN KEY ("recipient_id") REFERENCES employees("id");
+ALTER TABLE order_details 
+    ADD CONSTRAINT order_details_product_id_products_id_fk FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE;
 
-ALTER TABLE orders ADD CONSTRAINT orders_customer_id_customers_id_fk FOREIGN KEY ("customer_id") REFERENCES customers("id") ON DELETE cascade;
+ALTER TABLE employees 
+    ADD CONSTRAINT employees_recipient_id_employees_id_fk FOREIGN KEY (recipient_id) REFERENCES employees(id);
 
-ALTER TABLE orders ADD CONSTRAINT orders_employee_id_employees_id_fk FOREIGN KEY ("employee_id") REFERENCES employees("id") ON DELETE cascade;
+ALTER TABLE orders 
+    ADD CONSTRAINT orders_customer_id_customers_id_fk FOREIGN KEY (customer_id) REFERENCES customers(id) ON DELETE CASCADE;
 
-ALTER TABLE products ADD CONSTRAINT products_supplier_id_suppliers_id_fk FOREIGN KEY ("supplier_id") REFERENCES suppliers("id") ON DELETE cascade;
+ALTER TABLE orders 
+    ADD CONSTRAINT orders_employee_id_employees_id_fk FOREIGN KEY (employee_id) REFERENCES employees(id) ON DELETE CASCADE;
+
+ALTER TABLE products 
+    ADD CONSTRAINT products_supplier_id_suppliers_id_fk FOREIGN KEY (supplier_id) REFERENCES suppliers(id) ON DELETE CASCADE;
 
 INSERT INTO customers(id,company_name,contact_name,contact_title,address,city,region,postal_code,country,phone,fax) VALUES
  ('ALFKI','Alfreds Futterkiste','Maria Anders','Sales Representative','Obere Str. 57','Berlin',NULL,'12209','Germany','030-0074321','030-0076545')
@@ -3303,3 +3314,4 @@ INSERT INTO order_details(order_id,product_id,unit_price,quantity,discount) VALU
 ,('11077','73',15,2,0.01)
 ,('11077','75',7.75,4,0)
 ,('11077','77',13,2,0);
+

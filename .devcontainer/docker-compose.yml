@@ -8,15 +8,15 @@ services:
       - ..:/workspace:cached
       - try-node-node_modules:/workspace/node_modules
     depends_on: 
-      - postgres
+      # - postgres
       - mysql
-  postgres:
-    image: postgres
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-    ports:
-      - 15432:5432
+  # postgres:
+  #   image: postgres
+  #   environment:
+  #     - POSTGRES_PASSWORD=postgres
+  #     - POSTGRES_DB=postgres
+  #   ports:
+  #     - 15432:5432
 
   mysql:
     image: mysql:8.0.31

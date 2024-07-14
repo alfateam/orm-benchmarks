@@ -1,5 +1,5 @@
 import { exit } from 'node:process';
-import db from './pg'
+import db from './mysql'
 
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 const ROUNDS = Number.parseInt(process.env.ROUNDS);
@@ -45,6 +45,7 @@ async function getRowsWithRelations() {
 				customer: {},	
 				employee: {},
 			}
+		// }).then(x => console.dir(x, {depth: Infinity}));
 		}).then(JSON.stringify);
 		promises.push(p);
 	}
