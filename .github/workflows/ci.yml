@@ -40,20 +40,20 @@ jobs:
       #   ports:
       #     - 1433:1433
 
-      # mysql:
-      #   image: mysql:8.0.31
-      #   env:
-      #     MYSQL_DATABASE: test
-      #     MYSQL_USER: test
-      #     MYSQL_PASSWORD: test
-      #     MYSQL_ROOT_PASSWORD: test
-      #   ports:
-      #     - 3306:3306
-      #   options: >-
-      #     --health-cmd="mysqladmin ping" 
-      #     --health-interval=10s 
-      #     --health-timeout=5s 
-      #     --health-retries=3
+      mysql:
+        image: mysql:8.0.31
+        env:
+          MYSQL_DATABASE: test
+          MYSQL_USER: test
+          MYSQL_PASSWORD: test
+          MYSQL_ROOT_PASSWORD: test
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping" 
+          --health-interval=10s 
+          --health-timeout=5s 
+          --health-retries=3
 
     steps:
       - uses: actions/checkout@v4
@@ -62,5 +62,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - run: sed -i 's/localhost:15432/postgres/g' .env
+      - run: sed -i 's/localhost:13306/mysql/g' .env
       - run: npm install
       - run: npm run benchmark      

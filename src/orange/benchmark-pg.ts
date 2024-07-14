@@ -43,8 +43,7 @@ async function getRowsWithRelations() {
             },
             customer: true,
             employee: true,
-        // }).then(JSON.stringify);
-        }).then((x) => console.dir(x, {depth: Infinity}));
+        }).then(JSON.stringify);
         promises.push(p);
     }
     await Promise.all(promises);

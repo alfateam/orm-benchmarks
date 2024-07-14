@@ -10,6 +10,14 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 | Drizzle| 31.847 s       | 26.013 s        |
 | Prisma | 49.419 s       | 33.730 s        |
 | Mikro  | 2:05.736 min     | 1:58.967 min|
+  
+**MySQL**
+|        | Pool size = 1 | Pool size = 10 |
+|--------|---------------|----------------|
+| Orange | 16.925 s       | 18.858 s        |
+| Drizzle| 7:26.233 min       | 7:31.768 min        |
+| Prisma | 46.560 s       | 32.646 s        |
+| Mikro  | 1:42.455 min     | 1:43.959 min|
 ## Steps to Run
 
 The github action will always run remotely on push.  
