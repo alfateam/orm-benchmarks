@@ -39,11 +39,11 @@ async function main() {
 
   async function benchmark() {
     await warmup();
-    console.time(`mikro:pool ${POOLSIZE}`);
+    console.time(`mikro:pool ${POOLSIZE}:pg`);
     for (let i = 0; i < ROUNDS; i++) {
         await getRowsWithRelations();        
     }
-    console.timeEnd(`mikro:pool ${POOLSIZE}`)
+    console.timeEnd(`mikro:pool ${POOLSIZE}:pg`)
     await orm.close(true);
 	  exit(0);
   }

@@ -9,11 +9,11 @@ benchmark();
 
 async function benchmark() {
 	await warmup();
-	console.time(`drizzle:pool ${POOLSIZE}`);
+	console.time(`drizzle:pool ${POOLSIZE}:pg`);
 	for (let i = 0; i < ROUNDS; i++) {
 		await getRowsWithRelations();		
 	}
-	console.timeEnd(`drizzle:pool ${POOLSIZE}`)
+	console.timeEnd(`drizzle:pool ${POOLSIZE}:pg`)
 	exit(0);
 }
 
