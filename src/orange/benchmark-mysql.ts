@@ -1,5 +1,5 @@
 import { exit } from 'node:process';
-import db from './pg';
+import db from './mysql';
 import orange from 'orange-orm';
 
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
@@ -15,11 +15,11 @@ benchmark();
 
 async function benchmark() {
 	await warmup();
-    console.time(`orange:pool ${POOLSIZE}:pg`);
+    console.time(`orange:pool ${POOLSIZE}:mysql`);
     for (let i = 0; i < ROUNDS; i++) {
         await getRowsWithRelations();        
     }
-    console.timeEnd(`orange:pool ${POOLSIZE}:pg`)
+    console.timeEnd(`orange:pool ${POOLSIZE}:mysql`)
 	exit(0);
 }
 

@@ -9,7 +9,7 @@ const LOG = process.env.LOG === 'true';
 const prisma = new PrismaClient({
     datasources: {
         db: {
-            url: `${process.env.POSTGRES_URL}?connection_limit=${POOLSIZE}`,
+            url: `${process.env.MYSQL_URL}?connection_limit=${POOLSIZE}`,
         },
     },
     log: LOG ? [{ emit: 'event', level: 'query' }] : undefined
@@ -26,11 +26,11 @@ benchmark();
 
 async function benchmark() {
     await warmup();
-    console.time(`prisma:pool ${POOLSIZE}:pg`);
+    console.time(`prisma:pool ${POOLSIZE}:mysql`);
     for (let i = 0; i < ROUNDS; i++) {
         await getRowsWithRelations();        
     }
-    console.timeEnd(`prisma:pool ${POOLSIZE}:pg`);
+    console.timeEnd(`prisma:pool ${POOLSIZE}:mysql`);
     await prisma.$disconnect();
 }
 

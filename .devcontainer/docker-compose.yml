@@ -3,12 +3,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: /bin/sh -c "sed -i 's/localhost:15432/postgres/g' /workspace/.env && sleep infinity"
+    command: /bin/sh -c "sed -i 's/localhost:15432/postgres/g' /workspace/.env && sed -i 's/mysql on localhost:13306/mysql/g' /workspace/.env && sleep infinity"
     volumes:
       - ..:/workspace:cached
       - try-node-node_modules:/workspace/node_modules
     depends_on: 
       - postgres
+      - mysql
   postgres:
     image: postgres
     environment:
@@ -16,6 +17,16 @@ services:
       - POSTGRES_DB=postgres
     ports:
       - 15432:5432
+
+  mysql:
+    image: mysql:8.0.31
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    ports:
+      - 13306:3306
 
 volumes:
   try-node-node_modules:
