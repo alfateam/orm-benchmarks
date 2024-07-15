@@ -1,5 +1,5 @@
 import { exit } from 'node:process';
-import db from './pg'
+import db from './sqlite'
 
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 const ROUNDS = Number.parseInt(process.env.ROUNDS);
@@ -9,11 +9,11 @@ benchmark();
 
 async function benchmark() {
 	await warmup();
-	console.time(`drizzle:pool ${POOLSIZE}:pg`);
+	console.time(`drizzle:pool ${POOLSIZE}:sqlite`);
 	for (let i = 0; i < ROUNDS; i++) {
 		await getRowsWithRelations();		
 	}
-	console.timeEnd(`drizzle:pool ${POOLSIZE}:pg`)
+	console.timeEnd(`drizzle:pool ${POOLSIZE}:sqlite`)
 	exit(0);
 }
 
@@ -45,6 +45,7 @@ async function getRowsWithRelations() {
 				customer: {},	
 				employee: {},
 			}
+		// }).then(x => console.dir(x, {depth: Infinity}));
 		}).then(JSON.stringify);
 		promises.push(p);
 	}

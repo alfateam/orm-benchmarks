@@ -1,48 +1,45 @@
 import { InferModel, relations } from "drizzle-orm";
 import {
-  mysqlTable,
-  varchar,
-  date,
+  sqliteTable,
   text,
   foreignKey,
-  int,  
-  decimal,
+  real,
   index,
-  serial,
-} from "drizzle-orm/mysql-core";
+  int,
+} from "drizzle-orm/sqlite-core";
 
-export const customers = mysqlTable(
+export const customers = sqliteTable(
   "customers",
   {
-    id: varchar("id", { length: 255 }).primaryKey(),
+    id: text("id").primaryKey(),
     companyName: text("company_name").notNull(),
-    contactName: varchar("contact_name", { length: 255 }).notNull(),
-    contactTitle: varchar("contact_title", { length: 255 }).notNull(),
-    address: varchar("address", { length: 255 }).notNull(),
-    city: varchar("city", { length: 255 }).notNull(),
-    postalCode: varchar("postal_code", { length: 255 }),
-    region: varchar("region", { length: 255 }),
-    country: varchar("country", { length: 255 }).notNull(),
-    phone: varchar("phone", { length: 255 }).notNull(),
-    fax: varchar("fax", { length: 255 }),
+    contactName: text("contact_name").notNull(),
+    contactTitle: text("contact_title").notNull(),
+    address: text("address").notNull(),
+    city: text("city").notNull(),
+    postalCode: text("postal_code"),
+    region: text("region"),
+    country: text("country").notNull(),
+    phone: text("phone").notNull(),
+    fax: text("fax"),
   }
 );
 
-export const employees = mysqlTable(
+export const employees = sqliteTable(
   "employees",
   {
-    id: serial("id").primaryKey(),
-    lastName: varchar("last_name", { length: 255 }).notNull(),
-    firstName: varchar("first_name", { length: 255 }),
-    title: varchar("title", { length: 255 }).notNull(),
-    titleOfCourtesy: varchar("title_of_courtesy", { length: 255 }).notNull(),
-    birthDate: date("birth_date").notNull(),
-    hireDate: date("hire_date").notNull(),
-    address: varchar("address", { length: 255 }).notNull(),
-    city: varchar("city", { length: 255 }).notNull(),
-    postalCode: varchar("postal_code", { length: 255 }).notNull(),
-    country: varchar("country", { length: 255 }).notNull(),
-    homePhone: varchar("home_phone", { length: 255 }).notNull(),
+    id: int("id").primaryKey(),
+    lastName: text("last_name").notNull(),
+    firstName: text("first_name"),
+    title: text("title").notNull(),
+    titleOfCourtesy: text("title_of_courtesy").notNull(),
+    birthDate: text("birth_date").notNull(),
+    hireDate: text("hire_date").notNull(),
+    address: text("address").notNull(),
+    city: text("city").notNull(),
+    postalCode: text("postal_code").notNull(),
+    country: text("country").notNull(),
+    homePhone: text("home_phone").notNull(),
     extension: int("extension").notNull(),
     notes: text("notes").notNull(),
     recipientId: int("recipient_id"),
@@ -56,20 +53,20 @@ export const employees = mysqlTable(
   })
 );
 
-export const orders = mysqlTable("orders", {
-  id: varchar("id", { length: 255 }).primaryKey(),
-  orderDate: date("order_date").notNull(),
-  requiredDate: date("required_date").notNull(),
-  shippedDate: date("shipped_date"),
+export const orders = sqliteTable("orders", {
+  id: text("id").primaryKey(),
+  orderDate: text("order_date").notNull(),
+  requiredDate: text("required_date").notNull(),
+  shippedDate: text("shipped_date"),
   shipVia: int("ship_via").notNull(),
-  freight: decimal("freight").notNull(),
-  shipName: varchar("ship_name", { length: 255 }).notNull(),
-  shipCity: varchar("ship_city", { length: 255 }).notNull(),
-  shipRegion: varchar("ship_region", { length: 255 }),
-  shipPostalCode: varchar("ship_postal_code", { length: 255 }),
-  shipCountry: varchar("ship_country", { length: 255 }).notNull(),
+  freight: real("freight").notNull(),
+  shipName: text("ship_name").notNull(),
+  shipCity: text("ship_city").notNull(),
+  shipRegion: text("ship_region"),
+  shipPostalCode: text("ship_postal_code"),
+  shipCountry: text("ship_country").notNull(),
 
-  customerId: varchar("customer_id", { length: 255 })
+  customerId: text("customer_id")
     .notNull()
     .references(() => customers.id, { onDelete: "cascade" }),
 
@@ -78,26 +75,26 @@ export const orders = mysqlTable("orders", {
     .references(() => employees.id, { onDelete: "cascade" }),
 });
 
-export const suppliers = mysqlTable("suppliers", {
-  id: serial("id").primaryKey(),
-  companyName: varchar("company_name", { length: 255 }).notNull(),
-  contactName: varchar("contact_name", { length: 255 }).notNull(),
-  contactTitle: varchar("contact_title", { length: 255 }).notNull(),
-  address: varchar("address", { length: 255 }).notNull(),
-  city: varchar("city", { length: 255 }).notNull(),
-  region: varchar("region", { length: 255 }),
-  postalCode: varchar("postal_code", { length: 255 }).notNull(),
-  country: varchar("country", { length: 255 }).notNull(),
-  phone: varchar("phone", { length: 255 }).notNull(),
+export const suppliers = sqliteTable("suppliers", {
+  id: int("id").primaryKey(),
+  companyName: text("company_name").notNull(),
+  contactName: text("contact_name").notNull(),
+  contactTitle: text("contact_title").notNull(),
+  address: text("address").notNull(),
+  city: text("city").notNull(),
+  region: text("region"),
+  postalCode: text("postal_code").notNull(),
+  country: text("country").notNull(),
+  phone: text("phone").notNull(),
 });
 
-export const products = mysqlTable(
+export const products = sqliteTable(
   "products",
   {
-    id: serial("id").primaryKey(),
+    id: int("id").primaryKey(),
     name: text("name").notNull(),
-    quantityPerUnit: varchar("qt_per_unit", { length: 255 }).notNull(),
-    unitPrice: decimal("unit_price").notNull(),
+    quantityPerUnit: text("qt_per_unit").notNull(),
+    unitPrice: real("unit_price").notNull(),
     unitsInStock: int("units_in_stock").notNull(),
     unitsOnOrder: int("units_on_order").notNull(),
     reorderLevel: int("reorder_level").notNull(),
@@ -114,14 +111,14 @@ export const products = mysqlTable(
   }
 );
 
-export const details = mysqlTable(
+export const details = sqliteTable(
   "order_details",
   {
-    unitPrice: decimal("unit_price").notNull(),
+    unitPrice: real("unit_price").notNull(),
     quantity: int("quantity").notNull(),
-    discount: decimal("discount").notNull(),
+    discount: real("discount").notNull(),
 
-    orderId: varchar("order_id", { length: 255 })
+    orderId: text("order_id")
       .notNull()
       .references(() => orders.id, { onDelete: "cascade" }),
 
