@@ -22,9 +22,9 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 **SQLite**
 |        | Pool size = 1 | Pool size = 10 |
 |--------|---------------|----------------|
-| Orange | 42.596 s       |  33.829 s        |
+| Orange | 42.596 s       |  32.382 s        |
 | Drizzle| 27.646 s       | 24.495 s        |
-| Prisma | 42.265 s       | 28.066 s        |
+| Prisma | 42.265 s       | 23.117 s        |
 | Mikro  | 1:50.084 min     | 1:46.310 min|
   
 ## Steps to Run
