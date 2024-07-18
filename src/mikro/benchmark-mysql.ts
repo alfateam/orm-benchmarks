@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { exit } from 'node:process';
 import { MikroORM } from '@mikro-orm/core';
-import { PostgreSqlDriver } from '@mikro-orm/postgresql';
+import { MySqlDriver } from '@mikro-orm/mysql';
 import dotenv from 'dotenv';
 
 import { CustomerSchema } from './schema';
@@ -25,9 +25,9 @@ async function main() {
       requireEntitiesArray: false,
       alwaysAnalyseProperties: true,
     },
-    dbName: 'postgres',
-    driver: PostgreSqlDriver,
-    clientUrl: `${process.env.POSTGRES_URL}`,    
+    dbName: 'test',
+    driver: MySqlDriver,
+    clientUrl: `${process.env.MYSQL_URL}`,
     pool: {
       min: POOLSIZE,
       max: POOLSIZE
@@ -39,11 +39,11 @@ async function main() {
 
   async function benchmark() {
     await warmup();
-    console.time(`mikro:pool ${POOLSIZE}:pg`);
+    console.time(`mikro:pool ${POOLSIZE}:mysql`);
     for (let i = 0; i < ROUNDS; i++) {
         await getRowsWithRelations();        
     }
-    console.timeEnd(`mikro:pool ${POOLSIZE}:pg`)
+    console.timeEnd(`mikro:pool ${POOLSIZE}:mysql`)
     await orm.close(true);
 	  exit(0);
   }
