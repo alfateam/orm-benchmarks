@@ -6,6 +6,7 @@ declare namespace NodeJS {
       POSTGRES_URL: string;
       MYSQL_URL: string;
       SQLITE_URL: string;
+      MSSQL_URL: string;
     }
   }
   
