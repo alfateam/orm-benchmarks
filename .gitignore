@@ -4,3 +4,5 @@ package-lock.json
 .vscode
 coverage
 *.db
+*.db-shm
+*.db-wal

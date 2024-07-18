@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { exit } from 'node:process';
 import { MikroORM } from '@mikro-orm/core';
-import { MySqlDriver } from '@mikro-orm/mysql';
+import { SqliteDriver } from '@mikro-orm/sqlite';
 import dotenv from 'dotenv';
 
 import { CustomerSchema } from './schema';
@@ -25,9 +25,8 @@ async function main() {
       requireEntitiesArray: false,
       alwaysAnalyseProperties: true,
     },
-    dbName: 'test',
-    driver: MySqlDriver,
-    clientUrl: `${process.env.SQLITE_URL}`,
+    driver: SqliteDriver,
+    clientUrl: `file:${process.env.SQLITE_URL}`,
     pool: {
       min: POOLSIZE,
       max: POOLSIZE

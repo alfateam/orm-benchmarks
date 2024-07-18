@@ -1,6 +1,6 @@
 # Benchmarks for Orange, Drizzle, Prisma and MikroORM
 The numbers are from the latest run in the Node 22 Bullseye image.  
-I used computer 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz.   
+The computer was 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz.   
 The CPU had 4 physical cores, and each core supports 2 threads, making a total of 8 logical processors. 
 ## Results  
 **PostgreSQL**
@@ -18,6 +18,15 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 | Drizzle| 7:26.233 min       | 7:31.768 min        |
 | Prisma | 46.560 s       | 32.646 s        |
 | Mikro  | 1:42.455 min     | 1:43.959 min|
+  
+**SQLite**
+|        | Pool size = 1 | Pool size = 10 |
+|--------|---------------|----------------|
+| Orange | 42.596 s       |  33.829 s        |
+| Drizzle| 27.646 s       | 24.495 s        |
+| Prisma | 44.017 s       | 28.066 s        |
+| Mikro  | 1:50.084 min     | 1:46.310 min|
+  
 ## Steps to Run
 
 The github action will always run remotely on push.  

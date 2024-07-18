@@ -4,5 +4,5 @@ dotenv.config();
 
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 
-export default map.sqlite("sqlite.db", { size: POOLSIZE});
+export default map.sqlite(process.env.SQLITE_URL, { size: POOLSIZE});
 
