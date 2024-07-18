@@ -1,0 +1,119 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("SQLITE_URL")
+}
+
+model Customer {
+  id           String @id @map("id")
+  companyName  String @map("company_name")
+  contactName  String @map("contact_name")
+  contactTitle String @map("contact_title")
+  address      String @map("address")
+  city         String @map("city")
+  postalCode   String? @map("postal_code")
+  region       String? @map("region")
+  country      String @map("country")
+  phone        String @map("phone")
+  fax          String? @map("fax")
+  orders       Order[]
+
+  @@map("customers")
+}
+
+model OrderDetail {
+  unitPrice Float  @map("unit_price")
+  quantity  Int @map("quantity")
+  discount  Float  @map("discount")
+  orderId   String @map("order_id")
+  productId String @map("product_id")
+
+  order   Order   @relation(fields: [orderId], references: [id])
+  product Product @relation(fields: [productId], references: [id])
+
+  @@id([orderId, productId])
+  @@map("order_details")
+}
+
+model Employee {
+  id                String @id @map("id")
+  lastName          String @map("last_name")
+  firstName         String? @map("first_name")
+  title             String @map("title")
+  titleOfCourtesy   String @map("title_of_courtesy")
+  birthDate         String @map("birth_date")
+  hireDate          String @map("hire_date")
+  address           String @map("address")
+  city              String @map("city")
+  postalCode        String @map("postal_code")
+  country           String @map("country")
+  homePhone         String @map("home_phone")
+  extension         Int @map("extension")
+  notes             String @map("notes")
+  recipientId       String? @map("recipient_id")
+  orders            Order[]
+
+  @@index([recipientId])
+  @@map("employees")
+}
+
+model Order {
+  id            String     @id @map("id")
+  orderDate     String   @map("order_date")
+  requiredDate  String   @map("required_date")
+  shippedDate   String?  @map("shipped_date")
+  shipVia       Int @map("ship_via")
+  freight       Float @map("freight")
+  shipName      String @map("ship_name")
+  shipCity      String @map("ship_city")
+  shipRegion    String? @map("ship_region")
+  shipPostalCode String? @map("ship_postal_code")
+  shipCountry   String @map("ship_country")
+  customerId    String @map("customer_id")
+  employeeId    String @map("employee_id")
+
+  customer  Customer @relation(fields: [customerId], references: [id])
+  employee  Employee @relation(fields: [employeeId], references: [id])
+  orderDetails OrderDetail[]
+
+  @@index([customerId])
+  @@index([employeeId])
+  @@map("orders")
+}
+
+model Product {
+  id            String @id @map("id")
+  name          String @map("name")
+  qtPerUnit     String @map("qt_per_unit")
+  unitPrice     Float @map("unit_price")
+  unitsInStock  Int @map("units_in_stock")
+  unitsOnOrder  Int @map("units_on_order")
+  reorderLevel  Int @map("reorder_level")
+  discontinued  Int @map("discontinued")
+  supplierId    String @map("supplier_id")
+
+  supplier    Supplier  @relation(fields: [supplierId], references: [id])
+  orderDetails OrderDetail[]
+
+  @@index([supplierId])
+  @@map("products")
+}
+
+model Supplier {
+  id           String @id @map("id")
+  companyName  String @map("company_name")
+  contactName  String @map("contact_name")
+  contactTitle String @map("contact_title")
+  address      String @map("address")
+  city         String @map("city")
+  region       String? @map("region")
+  postalCode   String @map("postal_code")
+  country      String @map("country")
+  phone        String @map("phone")
+  products     Product[]
+
+  @@map("suppliers")
+}

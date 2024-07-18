@@ -5,6 +5,7 @@ declare namespace NodeJS {
       POOLSIZE: string;
       POSTGRES_URL: string;
       MYSQL_URL: string;
+      SQLITE_URL: string;
     }
   }
   

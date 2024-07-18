@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { exit } from 'node:process';
 import { MikroORM } from '@mikro-orm/core';
-import { MySqlDriver } from '@mikro-orm/mysql';
+import { SqliteDriver } from '@mikro-orm/sqlite';
 import dotenv from 'dotenv';
 
 import { CustomerSchema } from './schema';
@@ -25,9 +25,8 @@ async function main() {
       requireEntitiesArray: false,
       alwaysAnalyseProperties: true,
     },
-    dbName: 'test',
-    driver: MySqlDriver,
-    clientUrl: `${process.env.SQLITE_URL}`,
+    driver: SqliteDriver,
+    clientUrl: `file:${process.env.SQLITE_URL}`,
     pool: {
       min: POOLSIZE,
       max: POOLSIZE
@@ -39,11 +38,11 @@ async function main() {
 
   async function benchmark() {
     await warmup();
-    console.time(`mikro:pool ${POOLSIZE}:mysql`);
+    console.time(`mikro:pool ${POOLSIZE}`);
     for (let i = 0; i < ROUNDS; i++) {
         await getRowsWithRelations();        
     }
-    console.timeEnd(`mikro:pool ${POOLSIZE}:mysql`)
+    console.timeEnd(`mikro:pool ${POOLSIZE}`)
     await orm.close(true);
 	  exit(0);
   }
