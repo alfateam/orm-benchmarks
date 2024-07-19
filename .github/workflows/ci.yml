@@ -27,7 +27,13 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          SA_PASSWORD: P@assword123
+          ACCEPT_EULA: 'Y'
+        ports:
+          - 1433:1433
       mysql:
         image: mysql:8.0.31
         env:
@@ -51,5 +57,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: sed -i 's/localhost:15432/postgres/g' .env
       - run: sed -i 's/localhost:13306/mysql/g' .env
+      - run: sed -i 's/localhost,14330/mssql/g' .env
       - run: npm install
       - run: npm run benchmark
