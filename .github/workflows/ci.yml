@@ -57,5 +57,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: sed -i 's/localhost:15432/postgres/g' .env
       - run: sed -i 's/localhost:13306/mysql/g' .env
+      - run: sed -i 's/localhost,14330/mssql/g' .env
       - run: npm install
       - run: npm run benchmark

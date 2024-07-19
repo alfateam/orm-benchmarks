@@ -9,16 +9,16 @@ DROP TABLE if exists employees;
 -- Create customers table
 CREATE TABLE customers (
     id VARCHAR(10) PRIMARY KEY NOT NULL,
-    company_name NVARCHAR(MAX) NOT NULL,
-    contact_name NVARCHAR(MAX) NOT NULL,
-    contact_title NVARCHAR(MAX) NOT NULL,
-    address NVARCHAR(MAX) NOT NULL,
-    city NVARCHAR(MAX) NOT NULL,
-    postal_code NVARCHAR(MAX),
-    region NVARCHAR(MAX),
-    country NVARCHAR(MAX) NOT NULL,
-    phone NVARCHAR(MAX) NOT NULL,
-    fax NVARCHAR(MAX)
+    company_name VARCHAR(50) NOT NULL,
+    contact_name VARCHAR(50) NOT NULL,
+    contact_title VARCHAR(50) NOT NULL,
+    address VARCHAR(50) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    postal_code VARCHAR(50),
+    region VARCHAR(50),
+    country VARCHAR(50) NOT NULL,
+    phone VARCHAR(50) NOT NULL,
+    fax VARCHAR(50)
 );
 
 -- Create order_details table
@@ -33,19 +33,19 @@ CREATE TABLE order_details (
 -- Create employees table
 CREATE TABLE employees (
     id VARCHAR(10) PRIMARY KEY NOT NULL,
-    last_name NVARCHAR(MAX) NOT NULL,
-    first_name NVARCHAR(MAX),
-    title NVARCHAR(MAX) NOT NULL,
-    title_of_courtesy NVARCHAR(MAX) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    first_name VARCHAR(50),
+    title VARCHAR(50) NOT NULL,
+    title_of_courtesy VARCHAR(50) NOT NULL,
     birth_date DATE NOT NULL,
     hire_date DATE NOT NULL,
-    address NVARCHAR(MAX) NOT NULL,
-    city NVARCHAR(MAX) NOT NULL,
-    postal_code NVARCHAR(MAX) NOT NULL,
-    country NVARCHAR(MAX) NOT NULL,
-    home_phone NVARCHAR(MAX) NOT NULL,
+    address VARCHAR(50) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    postal_code VARCHAR(50) NOT NULL,
+    country VARCHAR(50) NOT NULL,
+    home_phone VARCHAR(50) NOT NULL,
     extension INT NOT NULL,
-    notes NVARCHAR(MAX) NOT NULL,
+    notes VARCHAR(500) NOT NULL,
     recipient_id VARCHAR(10)
 );
 
@@ -57,11 +57,11 @@ CREATE TABLE orders (
     shipped_date DATE,
     ship_via INT NOT NULL,
     freight FLOAT NOT NULL,
-    ship_name NVARCHAR(MAX) NOT NULL,
-    ship_city NVARCHAR(MAX) NOT NULL,
-    ship_region NVARCHAR(MAX),
-    ship_postal_code NVARCHAR(MAX),
-    ship_country NVARCHAR(MAX) NOT NULL,
+    ship_name VARCHAR(50) NOT NULL,
+    ship_city VARCHAR(50) NOT NULL,
+    ship_region VARCHAR(50),
+    ship_postal_code VARCHAR(50),
+    ship_country VARCHAR(50) NOT NULL,
     customer_id VARCHAR(10) NOT NULL,
     employee_id VARCHAR(10) NOT NULL
 );
@@ -69,8 +69,8 @@ CREATE TABLE orders (
 -- Create products table
 CREATE TABLE products (
     id VARCHAR(10) PRIMARY KEY NOT NULL,
-    name NVARCHAR(MAX) NOT NULL,
-    qt_per_unit NVARCHAR(MAX) NOT NULL,
+    name VARCHAR(50) NOT NULL,
+    qt_per_unit VARCHAR(50) NOT NULL,
     unit_price FLOAT NOT NULL,
     units_in_stock INT NOT NULL,
     units_on_order INT NOT NULL,
@@ -82,15 +82,15 @@ CREATE TABLE products (
 -- Create suppliers table
 CREATE TABLE suppliers (
     id VARCHAR(10) PRIMARY KEY NOT NULL,
-    company_name NVARCHAR(MAX) NOT NULL,
-    contact_name NVARCHAR(MAX) NOT NULL,
-    contact_title NVARCHAR(MAX) NOT NULL,
-    address NVARCHAR(MAX) NOT NULL,
-    city NVARCHAR(MAX) NOT NULL,
-    region NVARCHAR(MAX),
-    postal_code NVARCHAR(MAX) NOT NULL,
-    country NVARCHAR(MAX) NOT NULL,
-    phone NVARCHAR(MAX) NOT NULL
+    company_name VARCHAR(50) NOT NULL,
+    contact_name VARCHAR(50) NOT NULL,
+    contact_title VARCHAR(50) NOT NULL,
+    address VARCHAR(50) NOT NULL,
+    city VARCHAR(50) NOT NULL,
+    region VARCHAR(50),
+    postal_code VARCHAR(50) NOT NULL,
+    country VARCHAR(50) NOT NULL,
+    phone VARCHAR(50) NOT NULL
 );
 
 -- Create indexes

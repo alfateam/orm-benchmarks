@@ -9,9 +9,13 @@ const LOG = process.env.LOG === 'true';
 const prisma = new PrismaClient({
     datasources: {
         db: {
-            url: `${process.env.MSSQL_URL}?connection_limit=${POOLSIZE}`,
+            // url: `sqlserver://sa:P40assword123@localhost:14330/master?connection_limit=0`,
+            url: `sqlserver://mssql;initial catalog=master;user=sa;password=P@assword123;trustServerCertificate=true;encrypt=false;connectionLimit=${POOLSIZE};poolTimeout=20`,
+        
+            // url: `${process.env.MSSQL_URL.replace('server=', 'sqlserver://')}?connection_limit=${POOLSIZE}`,
         },
     },
+    
     log: LOG ? [{ emit: 'event', level: 'query' }] : undefined
 });
 
