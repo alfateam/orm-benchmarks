@@ -1,7 +1,9 @@
+import * as querystring from 'querystring';
+import extraParameters from '../extractMsParameters'
 import 'reflect-metadata';
 import { exit } from 'node:process';
 import { MikroORM } from '@mikro-orm/core';
-import { MySqlDriver } from '@mikro-orm/mysql';
+import { MsSqlDriver } from '@mikro-orm/mssql';
 import dotenv from 'dotenv';
 
 import { CustomerSchema } from './schema';
@@ -17,6 +19,8 @@ const ROUNDS = Number.parseInt(process.env.ROUNDS);
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE)
 const LOG = process.env.LOG === 'true';
 
+const params = extraParameters(process.env.MSSQL_URL);
+
 async function main() {
   const orm = await MikroORM.init({
     entities: [CustomerSchema, EmployeeSchema, OrderSchema, OrderDetailSchema, ProductSchema, SupplierSchema],
@@ -25,9 +29,10 @@ async function main() {
       requireEntitiesArray: false,
       alwaysAnalyseProperties: true,
     },
-    dbName: 'test',
-    driver: MySqlDriver,
-    clientUrl: `${process.env.MYSQL_URL}`,
+    dbName:params.database,
+    driver: MsSqlDriver,
+    clientUrl: `mssql://${params.uid}:${encodeURIComponent(params.pwd || '')}@mssql/${params.server}`,
+    // clientUrl: `${process.env.MSSQL_URL}`,
     pool: {
       min: POOLSIZE,
       max: POOLSIZE
@@ -39,11 +44,11 @@ async function main() {
 
   async function benchmark() {
     await warmup();
-    console.time(`mikro:pool ${POOLSIZE}:mysql`);
+    console.time(`mikro:pool ${POOLSIZE}:mssql`);
     for (let i = 0; i < ROUNDS; i++) {
         await getRowsWithRelations();        
     }
-    console.timeEnd(`mikro:pool ${POOLSIZE}:mysql`)
+    console.timeEnd(`mikro:pool ${POOLSIZE}:mssql`)
     await orm.close(true);
 	  exit(0);
   }

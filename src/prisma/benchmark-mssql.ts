@@ -1,18 +1,18 @@
 import { PrismaClient } from '@prisma/client';
 import dotenv from 'dotenv';
+import extractParameters from '../extractMsParameters';
 dotenv.config();
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 const ROUNDS = Number.parseInt(process.env.ROUNDS);
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 const LOG = process.env.LOG === 'true';
 
+const params = extractParameters(process.env.MSSQL_URL);
+
 const prisma = new PrismaClient({
     datasources: {
         db: {
-            // url: `sqlserver://sa:P40assword123@localhost:14330/master?connection_limit=0`,
-            url: `sqlserver://mssql;initial catalog=master;user=sa;password=P@assword123;trustServerCertificate=true;encrypt=false;connectionLimit=${POOLSIZE};poolTimeout=20`,
-        
-            // url: `${process.env.MSSQL_URL.replace('server=', 'sqlserver://')}?connection_limit=${POOLSIZE}`,
+            url: `sqlserver://${params.server};initial catalog=${params.database};user=${params.uid};password=${params.pwd};trustServerCertificate=true;encrypt=false;connectionLimit=${POOLSIZE};poolTimeout=20`,
         },
     },
     
