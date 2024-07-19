@@ -17,8 +17,8 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 | Orange | 2:31.942 min       | 1:11.334s s        |
 | Drizzle| N/A        | N/A        |
 | Prisma | 1:30.985 min s       | 38.529 s        |
-| Mikro  |  min     | 			console.dir(rows, {depth: Infinity});
- min|
+| Mikro  |  min     | 		min| |
+  
 **MySQL**
 |        | Pool size = 1 | Pool size = 10 |
 |--------|---------------|----------------|
