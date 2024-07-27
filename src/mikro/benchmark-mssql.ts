@@ -29,10 +29,9 @@ async function main() {
       requireEntitiesArray: false,
       alwaysAnalyseProperties: true,
     },
-    dbName:params.database,
+    dbName: params.database,
     driver: MsSqlDriver,
-    clientUrl: `mssql://${params.uid}:${encodeURIComponent(params.pwd || '')}@mssql/${params.server}`,
-    // clientUrl: `${process.env.MSSQL_URL}`,
+    clientUrl: `mssql://${params.uid}:${encodeURIComponent(params.pwd || '')}@${params.server}${params.port ? `:${params.port}` : ''}`,
     pool: {
       min: POOLSIZE,
       max: POOLSIZE

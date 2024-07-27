@@ -1,5 +1,6 @@
 interface ConnectionParameters {
     server?: string;
+    port?: string;
     database?: string;
     trusted_connection?: string;
     uid?: string;
@@ -7,6 +8,9 @@ interface ConnectionParameters {
     trustservercertificate?: string;
     [key: string]: string | undefined; // To allow additional parameters not explicitly defined
 }
+type ConnectionParameters = {
+    [key: string]: string;
+};
 
 function extractParameters(connectionString: string): ConnectionParameters {
     // Split the connection string by semicolon to get each key-value pair
@@ -24,7 +28,18 @@ function extractParameters(connectionString: string): ConnectionParameters {
 
         // Trim whitespace and add to the parameters object with lowercase keys
         if (key && value) {
-            parameters[key.trim().toLowerCase()] = value.trim();
+            const trimmedKey = key.trim().toLowerCase();
+            const trimmedValue = value.trim();
+
+            if (trimmedKey === 'server') {
+                const [server, port] = trimmedValue.split(',');
+                parameters['server'] = server;
+                if (port) {
+                    parameters['port'] = port;
+                }
+            } else {
+                parameters[trimmedKey] = trimmedValue;
+            }
         }
     });
 

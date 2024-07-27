@@ -8,16 +8,16 @@ services:
       - ..:/workspace:cached
       - try-node-node_modules:/workspace/node_modules
     depends_on: 
-      # - postgres
+      - postgres
       - mssql
-      # - mysql
-  # postgres:
-  #   image: postgres
-  #   environment:
-  #     - POSTGRES_PASSWORD=postgres
-  #     - POSTGRES_DB=postgres
-  #   ports:
-  #     - 15432:5432
+      - mysql
+  postgres:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - 15432:5432
   mssql:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -26,15 +26,15 @@ services:
       - MSSQL_SA_PASSWORD=P@assword123
     ports:
       - 14330:1433
-  # mysql:
-  #   image: mysql:8.0.31
-  #   environment:
-  #     - MYSQL_ROOT_PASSWORD=test
-  #     - MYSQL_DATABASE=test
-  #     - MYSQL_USER=test
-  #     - MYSQL_PASSWORD=test
-  #   ports:
-  #     - 13306:3306
+  mysql:
+    image: mysql:8.0.31
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    ports:
+      - 13306:3306
 
 
 volumes:
