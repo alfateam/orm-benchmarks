@@ -41,26 +41,37 @@ The github action will always run remotely on push.
 You can run it locally with the following steps:  
 
 1. **Start the database in Docker**  
-   Make sure Docker is installed and running on your machine.
-   - ```npm run db:start```
+   Make sure Docker is installed and running on your machine.  
+   Start the database of your choice.  
+   - ```npm run start:pg```
+   - ```npm run start:mysql```
+   - ```npm run start:mssql```
 
 2. Install dependencies
    - ```npm install```
 
-3. **Running all benchmarks**:
-   - ```npm run benchmark```
+3. **Running benchmarks for Orange ORM**:
+   - ```npm run orange:pg```
+   - ```npm run orange:mssql```
+   - ```npm run orange:mysql```
+   - ```npm run orange:sqlite```
+4. **Running benchmarks for Drizzle ORM**:
+   - ```npm run drizzle:pg```
+   - ```npm run drizzle:mssql```
+   - ```npm run drizzle:mysql```
+   - ```npm run drizzle:sqlite```
+5. **Running benchmarks for Prisma ORM**:
+   - ```npm run prisma:pg```   
+   - ```npm run prisma:mssql```
+   - ```npm run prisma:mysql```
+   - ```npm run prisma:sqlite```
+6. **Running benchmarks for Mikro ORM**:    
+   - ```npm run mikro:pg```
+   - ```npm run mikro:mssql```
+   - ```npm run mikro:mysql```
+   - ```npm run mikro:sqlite```
 
-4. **To run single benchmark for poolsize = 1**
-   - ```npm run drizzle:pool1```
-   - ```npm run orange:pool1```
-   - ```npm run prisma:pool1```
-   - ```npm run mikro:pool1```
-
-5. **To run single benchmark for poolsize = 10**
-   - ```npm run drizzle:pool10```
-   - ```npm run orange:pool10```
-   - ```npm run prisma:pool10```
-   - ```npm run mikro:pool10```
-
-6. Stop the Docker container
-   - ```npm run db:stop```
+7. Stop the database container
+   - ```npm run stop:pg```
+   - ```npm run stop:mysql```
+   - ```npm run stop:mssql```
