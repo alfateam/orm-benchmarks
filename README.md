@@ -71,7 +71,7 @@ You can run it locally with the following steps:
    - ```npm run mikro:mysql```
    - ```npm run mikro:sqlite```
 
-7. Stop the database container
+7. Stop the database containers
    - ```npm run stop:pg```
    - ```npm run stop:mysql```
    - ```npm run stop:mssql```
