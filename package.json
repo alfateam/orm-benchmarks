@@ -87,7 +87,7 @@
     "better-sqlite3": "^11.1.2",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.32.0",
+    "drizzle-orm": "^0.36.4",
     "mysql2": "^3.10.3",
     "orange-orm": "^4.4.0",
     "pg": "^8.12.0",
