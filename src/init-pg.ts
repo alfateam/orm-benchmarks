@@ -7,6 +7,7 @@ import { exit } from 'node:process';
 
 async function init() {
     await db.query(sql);
+    await db.close();
     exit(0);
 }
 

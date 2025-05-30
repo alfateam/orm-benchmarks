@@ -3,6 +3,7 @@ npm-debug.log
 package-lock.json
 .vscode
 coverage
+generated-pg
 *.db
 *.db-shm
 *.db-wal

@@ -11,6 +11,7 @@ async function init() {
         if (state.trimEnd())
 		    await db.query(state);
 	}
+    await db.close();
     exit(0);
 }
 
