@@ -96,31 +96,22 @@ const map = orange.map(x => {
             return {
                 supplier: v.references(x.suppliers).by('supplierId')
             };
-
-        })
-    }
-}).map(x => {
-    return {
+            
+        }),
         details: x.details.map(v => {
             return {
                 product: v.references(x.product).by('productId')
             };
-
-        })
-    }
-}).map(x => {
-    return {
+    
+        }),
         orders: x.orders.map(v => {
             return {
                 details: v.hasMany(x.details).by('orderId'),
                 customer: v.references(x.customers).by('customerId'),
                 employee: v.references(x.employees).by('employeeId'),
             };
-
-        })
-    }
-}).map(x => {
-    return {
+    
+        }),
         customers: x.customers.map(v => {
             return {
                 orders: v.hasMany(x.orders).by('customerId')

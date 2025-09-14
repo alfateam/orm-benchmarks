@@ -3,6 +3,35 @@ The numbers are from the latest run in the Node 22 Bullseye image.
 The computer was 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz.   
 The CPU had 4 physical cores, and each core supports 2 threads, making a total of 8 logical processors. 
 ## Results  
+
+<table>
+<tr>
+<td>
+
+
+| **PostgreSQL** | Pool size = 1 |
+|----------|------|
+| Orange | 24.754 s |
+| Drizzle | 31.847 s |
+| Prisma | 49.419 s |
+| Mikro | 2:05.736 min |
+
+</td>
+<td>&nbsp;&nbsp;&nbsp;</td>
+<td>
+
+| **PostgreSQL** | Pool size = 10 |
+|----------|------|
+| Orange | 24.541 s |
+| Drizzle | 26.013 s |
+| Prisma | 33.730 s |
+| Mikro | 1:58.967 min |
+
+</td>
+</tr>
+</table>
+
+
 **PostgreSQL**
 |        | Pool size = 1 | Pool size = 10 |
 |--------|---------------|----------------|
@@ -30,10 +59,10 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 **SQLite**
 |        | Pool size = 1 | Pool size = 10 |
 |--------|---------------|----------------|
-| Orange | 42.596 s       |  32.382 s        |
-| Drizzle| 21.561 s       | 21.742 s        |
-| Prisma | 42.265 s       | 23.117 s        |
-| Mikro  | 1:50.084 min     | 1:46.310 min|
+| Orange | 24.736 s       |  27.396 s        |
+| Drizzle| 28.158 s       | 27.500 s        |
+| Prisma | 1.05.088 min       | 37.237 s        |
+| Mikro  | 2:02.532 min     | 1:56.939 min|
   
 ## Steps to Run
 
