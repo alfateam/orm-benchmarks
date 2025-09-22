@@ -1,5 +1,5 @@
 # Benchmarks for Orange, Drizzle, Prisma and MikroORM
-The numbers are from the latest run in the Node 22 Bullseye image.  
+The numbers are from the latest run on Node 22.16.0 on Windows 11 Business.
 The computer was 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz.   
 The CPU had 4 physical cores, and each core supports 2 threads, making a total of 8 logical processors. 
 ## Results  
@@ -87,10 +87,10 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 
 | **SQL Server** | Pool size = 1 |
 |----------|------|
-| Prisma | 2:50.131 min |
 | Orange | 1:56.911 min |
+| Prisma | 2:42.099 min |
+| Mikro | 7:33.216 min |
 | Drizzle | N/A |
-| Mikro | N/A |
 
 </td>
 <td>&nbsp;&nbsp;&nbsp;</td>
@@ -98,10 +98,10 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 
 | **SQL Server** | Pool size = 10 |
 |----------|------|
-| Prisma | 1:06.803 min |
 | Orange | 57.463 s |
+| Prisma | 1:06.846 min |
+| Mikro | 4:15.637 min |
 | Drizzle | N/A |
-| Mikro | N/A |
 
 </td>
 </tr>

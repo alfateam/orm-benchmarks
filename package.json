@@ -88,6 +88,7 @@
     "orange-orm": "^4.7.14",
     "pg": "^8.12.0",
     "postgres": "^3.4.4",
+    "prisma": "^6.16.2",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7",
     "tedious": "^19.0.0"
