@@ -12,7 +12,7 @@ const params = extractParameters(process.env.MSSQL_URL);
 const prisma = new PrismaClient({
     datasources: {
         db: {
-            url: `sqlserver://${params.server}${params.port ? `:${params.port}` : ''};initial catalog=${params.database};user=${params.uid};password=${params.pwd};trustServerCertificate=true;encrypt=false;connectionLimit=${POOLSIZE};poolTimeout=20`,
+            url: `sqlserver://${params.server}${params.port ? `:${params.port}` : ''};initial catalog=${params.database};user=${params.uid};password=${params.pwd};trustServerCertificate=true;encrypt=false;connectionLimit=${POOLSIZE};poolTimeout=200`,
         },
     },
     

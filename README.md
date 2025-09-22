@@ -8,13 +8,38 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 <tr>
 <td>
 
+| **SQLite** | Pool size = 1 |
+|----------|------|
+| Orange | 27.420 s |
+| Drizzle | 28.274 s |
+| Prisma | 1:07.598 min |
+| Mikro | 2:10.166 min |
+
+</td>
+<td>&nbsp;&nbsp;&nbsp;</td>
+<td>
+
+| **SQLite** | Pool size = 10 |
+|----------|------|
+| Orange | 26.359 s |
+| Drizzle | 28.725 s |
+| Prisma | 44.160 s |
+| Mikro | 2:08.812 min |
+
+</td>
+</tr>
+</table>  
+
+<table>
+<tr>
+<td>
 
 | **PostgreSQL** | Pool size = 1 |
 |----------|------|
-| Orange | 24.754 s |
-| Drizzle | 31.847 s |
-| Prisma | 49.419 s |
-| Mikro | 2:05.736 min |
+| Orange | 29.159 s |
+| Drizzle | 50.432 s |
+| Prisma | 1:22.673 s |
+| Mikro | 3:07.183 min |
 
 </td>
 <td>&nbsp;&nbsp;&nbsp;</td>
@@ -22,48 +47,67 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 
 | **PostgreSQL** | Pool size = 10 |
 |----------|------|
-| Orange | 24.541 s |
-| Drizzle | 26.013 s |
-| Prisma | 33.730 s |
-| Mikro | 1:58.967 min |
+| Orange | 29.951 s |
+| Drizzle | 40.430 s |
+| Prisma | 1:01.705 s |
+| Mikro | 2:41.651 min |
+
+</td>
+</tr>
+</table>
+<table>
+<tr>
+<td>
+
+| **MySQL** | Pool size = 1 |
+|----------|------|
+| Orange | 38.694 s |
+| Prisma | 46.560 s |
+| Mikro | 3:19.943 min |
+| Drizzle | 8:50.832 min |
+
+</td>
+<td>&nbsp;&nbsp;&nbsp;</td>
+<td>
+
+| **MySQL** | Pool size = 10 |
+|----------|------|
+| Orange | 36.624 s |
+| Prisma | 32.646 s |
+| Mikro | 3:09.246 min |
+| Drizzle | 8:16.993 min |
+
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td>
+
+| **SQL Server** | Pool size = 1 |
+|----------|------|
+| Prisma | 4:51.772 min |
+| Orange | 1:56.911 min |
+| Drizzle | N/A |
+| Mikro | N/A |
+
+</td>
+<td>&nbsp;&nbsp;&nbsp;</td>
+<td>
+
+| **SQL Server** | Pool size = 10 |
+|----------|------|
+| Prisma | 1:2.740 min |
+| Orange | 2:38.236 s |
+| Drizzle | N/A |
+| Mikro | N/A |
 
 </td>
 </tr>
 </table>
 
 
-**PostgreSQL**
-|        | Pool size = 1 | Pool size = 10 |
-|--------|---------------|----------------|
-| Orange | 24.754 s       | 24.541 s        |
-| Drizzle| 31.847 s       | 26.013 s        |
-| Prisma | 49.419 s       | 33.730 s        |
-| Mikro  | 2:05.736 min     | 1:58.967 min|
-  
-**SQL Server**
-|        | Pool size = 1 | Pool size = 10 |
-|--------|---------------|----------------|
-| Orange | 2:31.942 min       | 1:11.334s s        |
-| Drizzle| N/A        | N/A        |
-| Prisma | 1:30.985 min s       | 38.529 s        |
-| Mikro  |  min     | 		min| |
-  
-**MySQL**
-|        | Pool size = 1 | Pool size = 10 |
-|--------|---------------|----------------|
-| Orange | 16.925 s       | 18.858 s        |
-| Drizzle| 7:26.233 min       | 7:31.768 min        |
-| Prisma | 46.560 s       | 32.646 s        |
-| Mikro  | 1:42.455 min     | 1:43.959 min|
-  
-**SQLite**
-|        | Pool size = 1 | Pool size = 10 |
-|--------|---------------|----------------|
-| Orange | 24.736 s       |  27.396 s        |
-| Drizzle| 28.158 s       | 27.500 s        |
-| Prisma | 1.05.088 min       | 37.237 s        |
-| Mikro  | 2:02.532 min     | 1:56.939 min|
-  
 ## Steps to Run
 
 The github action will always run remotely on push.  
