@@ -12,7 +12,7 @@
   "scripts": {
     "docker": "npm run start-db",
     "start:mssql": "docker run -d -p 14330:1433 -e  ACCEPT_EULA=Y -e MSSQL_SA_PASSWORD=P@assword123 --name my_mssql mcr.microsoft.com/mssql/server:2022-latest",
-    "start:mysql": "docker run -d -p 13306:3306 -e MYSQL_ROOT_PASSWORD=test -e MYSQL_DATABASE=test -e MYSQL_USER=test -e MYSQL_PASSWORD=test --name my_mssql mysql:8.0.31",
+    "start:mysql": "docker run -d -p 13306:3306 -e MYSQL_ROOT_PASSWORD=test -e MYSQL_DATABASE=test -e MYSQL_USER=test -e MYSQL_PASSWORD=test --name my_mmysql mysql:8.0.31",
     "start:pg": "docker run -d -p 15432:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres --name my_pg postgres",
     "stop:mssql": "docker stop my_mssql && docker rm my_mssql",
     "stop:mysql": "docker stop my_mysql && docker rm my_mysql",

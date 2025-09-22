@@ -4,14 +4,14 @@ The computer was 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz.
 The CPU had 4 physical cores, and each core supports 2 threads, making a total of 8 logical processors. 
 ## Results  
 
-| **SQLite&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** | Pool size = 1 |
+| **SQLite** | Pool size = 1 |
 |----------|------|
 | Orange | 27.420 s |
 | Drizzle | 28.274 s |
 | Prisma | 1:07.598 min |
 | Mikro | 2:10.166 min |
 
-| **SQLite&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** | Pool size = 10 |
+| **SQLite** | Pool size = 10 |
 |----------|------|
 | Orange | 26.359 s |
 | Drizzle | 28.725 s |
@@ -32,17 +32,17 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 | Prisma | 1:01.705 s |
 | Mikro | 2:41.651 min |
 
-| **MySQL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** | Pool size = 1 |
+| **MySQL** | Pool size = 1 |
 |----------|------|
-| Orange | 38.694 s |
-| Prisma | 46.560 s |
+| Orange | 29.070 s |
+| Prisma | 1:13.641 s |
 | Mikro | 3:19.943 min |
 | Drizzle | 8:50.832 min |
 
-| **MySQL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** | Pool size = 10 |
+| **MySQL** | Pool size = 10 |
 |----------|------|
-| Orange | 36.624 s |
-| Prisma | 32.646 s |
+| Orange | 28.928 s |
+| Prisma | 50.019 s |
 | Mikro | 3:09.246 min |
 | Drizzle | 8:16.993 min |
 
