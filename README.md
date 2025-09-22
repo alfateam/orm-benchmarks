@@ -4,20 +4,12 @@ The computer was 11th Gen Intel(R) Core(TM) i7-1185G7 @ 3.00GHz.
 The CPU had 4 physical cores, and each core supports 2 threads, making a total of 8 logical processors. 
 ## Results  
 
-<table>
-<tr>
-<td>
-
 | **SQLite&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** | Pool size = 1 |
 |----------|------|
 | Orange | 27.420 s |
 | Drizzle | 28.274 s |
 | Prisma | 1:07.598 min |
 | Mikro | 2:10.166 min |
-
-</td>
-<td>&nbsp;&nbsp;&nbsp;</td>
-<td>
 
 | **SQLite&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** | Pool size = 10 |
 |----------|------|
@@ -26,24 +18,12 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 | Prisma | 44.160 s |
 | Mikro | 2:08.812 min |
 
-</td>
-</tr>
-</table>  
-
-<table>
-<tr>
-<td>
-
 | **PostgreSQL** | Pool size = 1 |
 |----------|------|
 | Orange | 29.159 s |
 | Drizzle | 50.432 s |
 | Prisma | 1:22.673 s |
 | Mikro | 3:07.183 min |
-
-</td>
-<td>&nbsp;&nbsp;&nbsp;</td>
-<td>
 
 | **PostgreSQL** | Pool size = 10 |
 |----------|------|
@@ -52,23 +32,12 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 | Prisma | 1:01.705 s |
 | Mikro | 2:41.651 min |
 
-</td>
-</tr>
-</table>
-<table>
-<tr>
-<td>
-
 | **MySQL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** | Pool size = 1 |
 |----------|------|
 | Orange | 38.694 s |
 | Prisma | 46.560 s |
 | Mikro | 3:19.943 min |
 | Drizzle | 8:50.832 min |
-
-</td>
-<td>&nbsp;&nbsp;&nbsp;</td>
-<td>
 
 | **MySQL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;** | Pool size = 10 |
 |----------|------|
@@ -77,14 +46,6 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 | Mikro | 3:09.246 min |
 | Drizzle | 8:16.993 min |
 
-</td>
-</tr>
-</table>
-
-<table>
-<tr>
-<td>
-
 | **SQL Server** | Pool size = 1 |
 |----------|------|
 | Orange | 1:56.911 min |
@@ -92,21 +53,12 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 | Mikro | 7:33.216 min |
 | Drizzle | N/A |
 
-</td>
-<td>&nbsp;&nbsp;&nbsp;</td>
-<td>
-
 | **SQL Server** | Pool size = 10 |
 |----------|------|
 | Orange | 57.463 s |
 | Prisma | 1:06.846 min |
 | Mikro | 4:15.637 min |
 | Drizzle | N/A |
-
-</td>
-</tr>
-</table>
-
 
 ## Steps to Run
 
