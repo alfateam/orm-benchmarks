@@ -87,7 +87,7 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 
 | **SQL Server** | Pool size = 1 |
 |----------|------|
-| Prisma | 4:51.772 min |
+| Prisma | 2:50.131 min |
 | Orange | 1:56.911 min |
 | Drizzle | N/A |
 | Mikro | N/A |
@@ -98,8 +98,8 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 
 | **SQL Server** | Pool size = 10 |
 |----------|------|
-| Prisma | 1:2.740 min |
-| Orange | 2:38.236 s |
+| Prisma | 1:06.803 min |
+| Orange | 57.463 s |
 | Drizzle | N/A |
 | Mikro | N/A |
 

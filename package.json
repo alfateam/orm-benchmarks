@@ -56,7 +56,7 @@
     "prisma:pool1:mysql": "npm run init:mysql && prisma generate --schema=./src/prisma/schema-mysql.prisma && cross-env POOLSIZE=1 tsx ./src/prisma/benchmark-mysql.ts",
     "prisma:pool10:mysql": "npm run init:mysql && prisma generate --schema=./src/prisma/schema-mysql.prisma && cross-env POOLSIZE=10 tsx ./src/prisma/benchmark-mysql.ts",
     "prisma:pool1:pg": "npm run init:pg && prisma generate --schema=./src/prisma/schema-pg.prisma && cross-env POOLSIZE=1 tsx ./src/prisma/benchmark-pg.ts",
-    "prisma:pool10:pg": "npm run init:pg && prisma generate --schema=./src/prisma/schema-pg.prisma && cross-env POOLSIZE=10 tsx ./src/prisma/benchmark-pg.ts",    
+    "prisma:pool10:pg": "npm run init:pg && prisma generate --schema=./src/prisma/schema-pg.prisma && cross-env POOLSIZE=10 tsx ./src/prisma/benchmark-pg.ts",
     "mikro:mssql": "npm run mikro:pool1:mssql && npm run mikro:pool10:mssql",
     "mikro:sqlite": "npm run mikro:pool1:sqlite && npm run mikro:pool10:sqlite",
     "mikro:mysql": "npm run mikro:pool1:mysql && npm run mikro:pool10:mysql",
@@ -88,7 +88,6 @@
     "orange-orm": "^4.7.14",
     "pg": "^8.12.0",
     "postgres": "^3.4.4",
-    "prisma": "^6.16.2",
     "reflect-metadata": "^0.2.2",
     "sqlite3": "^5.1.7",
     "tedious": "^19.0.0"
