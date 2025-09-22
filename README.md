@@ -72,7 +72,7 @@ You can run it locally with the following steps:
    - ```npm run start:mysql```
    - ```npm run start:mssql```
 
-2. Install dependencies
+2. **Install dependencies**
    - ```npm install```
 
 3. **Running benchmarks for Orange ORM**:
@@ -96,7 +96,7 @@ You can run it locally with the following steps:
    - ```npm run mikro:mysql```
    - ```npm run mikro:sqlite```
 
-7. Stop the database containers
+7. **Stop the database containers**
    - ```npm run stop:pg```
    - ```npm run stop:mysql```
    - ```npm run stop:mssql```
