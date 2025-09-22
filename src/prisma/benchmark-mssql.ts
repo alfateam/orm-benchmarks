@@ -1,4 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "./generated/mssql/client";
+import { PrismaMssql } from "@prisma/adapter-mssql";
+
+
 import dotenv from 'dotenv';
 import extractParameters from '../extractMsParameters';
 dotenv.config();
@@ -8,14 +11,10 @@ const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 const LOG = process.env.LOG === 'true';
 
 const params = extractParameters(process.env.MSSQL_URL);
+const adapter = new PrismaMssql({ connectionString:  `sqlserver://${params.server}${params.port ? `:${params.port}` : ''};initial catalog=${params.database};user=${params.uid};password=${params.pwd};trustServerCertificate=true;encrypt=false;connectionLimit=${POOLSIZE};poolTimeout=200` });
 
 const prisma = new PrismaClient({
-    datasources: {
-        db: {
-            url: `sqlserver://${params.server}${params.port ? `:${params.port}` : ''};initial catalog=${params.database};user=${params.uid};password=${params.pwd};trustServerCertificate=true;encrypt=false;connectionLimit=${POOLSIZE};poolTimeout=200`,
-        },
-    },
-    
+    adapter,
     log: LOG ? [{ emit: 'event', level: 'query' }] : undefined
 });
 

@@ -1,6 +1,9 @@
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client" // ESM-first
+  engineType = "client"        // No rust engines
+  output   = "./generated/pg"
 }
+
 
 datasource db {
   provider = "postgresql"

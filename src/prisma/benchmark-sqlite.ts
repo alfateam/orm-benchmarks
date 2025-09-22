@@ -1,4 +1,6 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "./generated/sqlite/client";
+import { PrismaBetterSQLite3 } from "@prisma/adapter-better-sqlite3";
+
 import dotenv from 'dotenv';
 dotenv.config();
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
@@ -6,15 +8,12 @@ const ROUNDS = Number.parseInt(process.env.ROUNDS);
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 const LOG = process.env.LOG === 'true';
 
+const adapter = new PrismaBetterSQLite3({ connectionString: `file:../../${process.env.SQLITE_URL}?connection_limit=${POOLSIZE}` });
+
 const prisma = new PrismaClient({
-    datasources: {
-        db: {
-            url: `file:../../${process.env.SQLITE_URL}?connection_limit=${POOLSIZE}`,
-        },
-    },
+    adapter,
     log: LOG ? [{ emit: 'event', level: 'query' }] : undefined
 });
-
 
 prisma.$on('query', (e) => {
     console.log('Query: ' + e.query);

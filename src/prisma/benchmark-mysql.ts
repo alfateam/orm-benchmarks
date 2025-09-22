@@ -1,4 +1,7 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "./generated/mysql/client";
+import { PrismaMariaDb } from "@prisma/adapter-mariadb";
+import extractParameters from '../extractMariaParameters';
+
 import dotenv from 'dotenv';
 dotenv.config();
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
@@ -6,12 +9,11 @@ const ROUNDS = Number.parseInt(process.env.ROUNDS);
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 const LOG = process.env.LOG === 'true';
 
+const params = extractParameters(process.env.MYSQL_URL);
+
+const adapter = new PrismaMariaDb({host: params.host, port: params.port ? Number.parseInt(params.port) : 3306, database: params.database, user: params.user, password: params.password, connectionLimit: POOLSIZE });
 const prisma = new PrismaClient({
-    datasources: {
-        db: {
-            url: `${process.env.MYSQL_URL}?connection_limit=${POOLSIZE}`,
-        },
-    },
+    adapter,
     log: LOG ? [{ emit: 'event', level: 'query' }] : undefined
 });
 
