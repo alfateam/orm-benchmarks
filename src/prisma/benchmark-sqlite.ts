@@ -8,10 +8,9 @@ const ROUNDS = Number.parseInt(process.env.ROUNDS);
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 const LOG = process.env.LOG === 'true';
 
-const adapter = new PrismaBetterSQLite3({ connectionString: `file:../../${process.env.SQLITE_URL}?connection_limit=${POOLSIZE}` });
-
+const adapter = new PrismaBetterSQLite3({ url: `file:./${process.env.SQLITE_URL}`} ); //pooling not possible for better-sqlite3
 const prisma = new PrismaClient({
-    adapter,
+    adapter,    
     log: LOG ? [{ emit: 'event', level: 'query' }] : undefined
 });
 

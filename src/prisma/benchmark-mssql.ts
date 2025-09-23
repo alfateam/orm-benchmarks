@@ -11,7 +11,7 @@ const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 const LOG = process.env.LOG === 'true';
 
 const params = extractParameters(process.env.MSSQL_URL);
-const adapter = new PrismaMssql({ connectionString:  `sqlserver://${params.server}${params.port ? `:${params.port}` : ''};initial catalog=${params.database};user=${params.uid};password=${params.pwd};trustServerCertificate=true;encrypt=false;connectionLimit=${POOLSIZE};poolTimeout=200` });
+const adapter = new PrismaMssql(`sqlserver://${params.server}${params.port ? `:${params.port}` : ''};initial catalog=${params.database};user=${params.uid};password=${params.pwd};trustServerCertificate=true;encrypt=false;connectionLimit=${POOLSIZE};poolTimeout=200`);
 
 const prisma = new PrismaClient({
     adapter,

@@ -6,58 +6,51 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 
 | **SQLite** | Pool size = 1 |
 |----------|------|
-| Orange | 27.420 s |
-| Drizzle | 28.274 s |
-| Prisma | 1:07.598 min |
+| Prisma | 22.363 s |
+| Orange | 28.046 s |
+| Drizzle | 29.625 s |
 | Mikro | 2:10.166 min |
-
-| **SQLite** | Pool size = 10 |
-|----------|------|
-| Orange | 26.359 s |
-| Drizzle | 28.725 s |
-| Prisma | 44.160 s |
-| Mikro | 2:08.812 min |
 
 | **PostgreSQL** | Pool size = 1 |
 |----------|------|
+| Prisma | 27.660 s |
 | Orange | 29.159 s |
 | Drizzle | 50.432 s |
-| Prisma | 1:22.673 s |
 | Mikro | 3:07.183 min |
 
 | **PostgreSQL** | Pool size = 10 |
 |----------|------|
+| Prisma | 28.087 s |
 | Orange | 29.951 s |
 | Drizzle | 40.430 s |
-| Prisma | 1:01.705 s |
 | Mikro | 2:41.651 min |
 
 | **MySQL** | Pool size = 1 |
 |----------|------|
 | Orange | 29.070 s |
-| Prisma | 1:13.641 s |
+| Prisma | 34.339 s |
 | Mikro | 3:19.943 min |
 | Drizzle | 8:50.832 min |
 
 | **MySQL** | Pool size = 10 |
 |----------|------|
 | Orange | 28.928 s |
-| Prisma | 50.019 s |
+| Prisma | 30.116 s |
 | Mikro | 3:09.246 min |
 | Drizzle | 8:16.993 min |
 
 | **SQL Server** | Pool size = 1 |
 |----------|------|
-| Orange | 1:56.911 min |
-| Prisma | 2:42.099 min |
-| Mikro | 7:33.216 min |
+| Orange | 2:03.694 min |
+| Prisma | 4:52.575 min |
+| Mikro | 4:06.258 min |
 | Drizzle | N/A |
 
 | **SQL Server** | Pool size = 10 |
 |----------|------|
-| Orange | 57.463 s |
-| Prisma | 1:06.846 min |
-| Mikro | 4:15.637 min |
+| Orange | 56.862 s |
+| Prisma | 1:10.156 min |
+| Mikro | 2:52.443 min |
 | Drizzle | N/A |
 
 ## Steps to Run
