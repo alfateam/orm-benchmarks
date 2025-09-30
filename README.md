@@ -6,9 +6,9 @@ The CPU had 4 physical cores, and each core supports 2 threads, making a total o
 
 | **SQLite** | Pool size = 1 |
 |----------|------|
-| Prisma | 22.363 s |
-| Orange | 28.046 s |
-| Drizzle | 29.625 s |
+| Prisma | 20.165 s |
+| Orange | 25.505 s |
+| Drizzle | 28.193 s |
 | Mikro | 2:10.166 min |
 
 | **PostgreSQL** | Pool size = 1 |
