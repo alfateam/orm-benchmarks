@@ -35,7 +35,7 @@ async function warmup() {
 async function getRowsWithRelations() {
     const promises = [];
     for (let i = 0; i < ITERATIONS; i++) {        
-        const p = db.orders.getAll({
+        const p = db.orders.getMany({
             details: {
                 product: {
                     supplier: true

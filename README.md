@@ -73,6 +73,28 @@ You can run it locally with the following steps:
    - ```npm run orange:mssql```
    - ```npm run orange:mysql```
    - ```npm run orange:sqlite```
+
+### Simulate DB Latency at Docker Network Level (all ORMs)
+
+This uses Linux `tc netem` inside the DB container, so latency applies to all clients/ORMs, not only Orange.
+
+Important:
+- Start DB containers with `--cap-add=NET_ADMIN` (already included in `start:*` scripts).
+- If your containers were started before this change, recreate them:
+  - `npm run stop:pg && npm run start:pg`
+  - `npm run stop:mysql && npm run start:mysql`
+  - `npm run stop:mssql && npm run start:mssql`
+
+Set latency levels (`none|low|medium|high`) or direct milliseconds:
+- `npm run latency:pg -- medium`
+- `npm run latency:mysql -- 35`
+- `npm run latency:mssql -- high`
+
+Inspect or clear:
+- `npm run latency:pg:show`
+- `npm run latency:pg:clear`
+- `npm run latency:clear`
+
 4. **Running benchmarks for Drizzle ORM**:
    - ```npm run drizzle:pg```
    - ```npm run drizzle:mssql```
