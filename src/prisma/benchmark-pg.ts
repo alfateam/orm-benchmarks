@@ -1,5 +1,6 @@
 import { PrismaClient } from "./generated/pg/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
 import dotenv from 'dotenv';
 dotenv.config();
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
@@ -7,7 +8,11 @@ const ROUNDS = Number.parseInt(process.env.ROUNDS);
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 const LOG = process.env.LOG === 'true';
 
-const adapter = new PrismaPg({ connectionString: `${process.env.POSTGRES_URL}?connection_limit=${POOLSIZE}` });
+const pool = new Pool({
+    connectionString: process.env.POSTGRES_URL,
+    max: POOLSIZE,
+});
+const adapter = new PrismaPg(pool);
 
 const prisma = new PrismaClient({
     adapter,

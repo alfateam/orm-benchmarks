@@ -11,7 +11,15 @@ const LOG = process.env.LOG === 'true';
 
 const params = extractParameters(process.env.MYSQL_URL);
 
-const adapter = new PrismaMariaDb({host: params.host, port: params.port ? Number.parseInt(params.port) : 3306, database: params.database, user: params.user, password: params.password, connectionLimit: POOLSIZE });
+const adapterConfig = {
+    host: params.host,
+    port: params.port ? Number.parseInt(params.port, 10) : 3306,
+    database: params.database,
+    user: params.user,
+    password: params.password,
+    connectionLimit: POOLSIZE,
+};
+const adapter = new PrismaMariaDb(adapterConfig);
 const prisma = new PrismaClient({
     adapter,
     log: LOG ? [{ emit: 'event', level: 'query' }] : undefined

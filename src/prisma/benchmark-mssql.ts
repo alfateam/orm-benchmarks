@@ -11,7 +11,22 @@ const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 const LOG = process.env.LOG === 'true';
 
 const params = extractParameters(process.env.MSSQL_URL);
-const adapter = new PrismaMssql(`sqlserver://${params.server}${params.port ? `:${params.port}` : ''};initial catalog=${params.database};user=${params.uid};password=${params.pwd};trustServerCertificate=true;encrypt=false;connectionLimit=${POOLSIZE};poolTimeout=200`);
+const adapterConfig = {
+    server: params.server,
+    port: params.port ? Number.parseInt(params.port, 10) : undefined,
+    database: params.database,
+    user: params.uid,
+    password: params.pwd,
+    options: {
+        trustServerCertificate: true,
+        encrypt: false,
+    },
+    pool: {
+        max: POOLSIZE,
+        acquireTimeoutMillis: 200_000,
+    },
+};
+const adapter = new PrismaMssql(adapterConfig);
 
 const prisma = new PrismaClient({
     adapter,
