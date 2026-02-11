@@ -16,7 +16,7 @@ const map = orange.map(x => {
                 shipPostalCode: column('ship_postal_code').string(),
                 shipCountry: column('ship_country').string(),
                 customerId: column('customer_id').string(),
-                employeeId: column('employee_id').numeric(),
+                employeeId: column('employee_id').string(),
             };
         }),
         product: x.table('products').map( ({ column }) => {
@@ -29,7 +29,7 @@ const map = orange.map(x => {
                 unitsOnOrder: column("units_on_order").numeric(),
                 reorderLevel: column("reorder_level").numeric(),
                 discontinued: column("discontinued").numeric(),
-                supplierId: column("supplier_id").numeric(),
+                supplierId: column("supplier_id").string(),
             };
         }),
         details: x.table('order_details').map( ({ column }) => {
@@ -43,7 +43,7 @@ const map = orange.map(x => {
         }),
         employees: x.table('employees').map( ({ column }) => {
             return {
-                id: column("id").numeric().primary(),
+                id: column("id").string().primary(),
                 lastName: column("last_name").string(),
                 firstName: column("first_name").string(),
                 title: column("title").string(),
@@ -57,7 +57,7 @@ const map = orange.map(x => {
                 homePhone: column("home_phone").string(),
                 extension: column("extension").numeric(),
                 notes: column("notes").string(),
-                recipient_id: column("recipient_id").numeric(),
+                recipient_id: column("recipient_id").string(),
             }
         }),
         customers: x.table('customers').map( ({ column }) => {
@@ -77,7 +77,7 @@ const map = orange.map(x => {
         }),
         suppliers: x.table('suppliers').map( ({ column }) => {
             return {
-                id: column("id").numeric().primary(),
+                id: column("id").string().primary(),
                 companyName: column("company_name").string(),
                 contactName: column("contact_name").string(),
                 contactTitle: column("contact_title").string(),

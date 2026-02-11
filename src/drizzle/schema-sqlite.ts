@@ -28,7 +28,7 @@ export const customers = sqliteTable(
 export const employees = sqliteTable(
   "employees",
   {
-    id: int("id").primaryKey(),
+    id: text("id").primaryKey(),
     lastName: text("last_name").notNull(),
     firstName: text("first_name"),
     title: text("title").notNull(),
@@ -42,7 +42,7 @@ export const employees = sqliteTable(
     homePhone: text("home_phone").notNull(),
     extension: int("extension").notNull(),
     notes: text("notes").notNull(),
-    recipientId: int("recipient_id"),
+    recipientId: text("recipient_id"),
   },
   (table) => ({
     recipientFk: foreignKey({
@@ -70,13 +70,13 @@ export const orders = sqliteTable("orders", {
     .notNull()
     .references(() => customers.id, { onDelete: "cascade" }),
 
-  employeeId: int("employee_id")
+  employeeId: text("employee_id")
     .notNull()
     .references(() => employees.id, { onDelete: "cascade" }),
 });
 
 export const suppliers = sqliteTable("suppliers", {
-  id: int("id").primaryKey(),
+  id: text("id").primaryKey(),
   companyName: text("company_name").notNull(),
   contactName: text("contact_name").notNull(),
   contactTitle: text("contact_title").notNull(),
@@ -91,7 +91,7 @@ export const suppliers = sqliteTable("suppliers", {
 export const products = sqliteTable(
   "products",
   {
-    id: int("id").primaryKey(),
+    id: text("id").primaryKey(),
     name: text("name").notNull(),
     quantityPerUnit: text("qt_per_unit").notNull(),
     unitPrice: real("unit_price").notNull(),
@@ -100,7 +100,7 @@ export const products = sqliteTable(
     reorderLevel: int("reorder_level").notNull(),
     discontinued: int("discontinued").notNull(),
 
-    supplierId: int("supplier_id")
+    supplierId: text("supplier_id")
       .notNull()
       .references(() => suppliers.id, { onDelete: "cascade" }),
   },
@@ -122,7 +122,7 @@ export const details = sqliteTable(
       .notNull()
       .references(() => orders.id, { onDelete: "cascade" }),
 
-    productId: int("product_id")
+    productId: text("product_id")
       .notNull()
       .references(() => products.id, { onDelete: "cascade" }),
   },
