@@ -1,5 +1,5 @@
 import { PrismaClient } from "./generated/sqlite/client";
-import { PrismaBetterSQLite3 } from "@prisma/adapter-better-sqlite3";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -8,7 +8,7 @@ const ROUNDS = Number.parseInt(process.env.ROUNDS);
 const POOLSIZE = Number.parseInt(process.env.POOLSIZE);
 const LOG = process.env.LOG === 'true';
 
-const adapter = new PrismaBetterSQLite3({ url: `file:./${process.env.SQLITE_URL}`} ); //pooling not possible for better-sqlite3
+const adapter = new PrismaBetterSqlite3({ url: `file:./${process.env.SQLITE_URL}`} ); //pooling not possible for better-sqlite3
 const prisma = new PrismaClient({
     adapter,    
     log: LOG ? [{ emit: 'event', level: 'query' }] : undefined
