@@ -1,6 +1,7 @@
 import { exit } from 'node:process';
 import db from './pg';
 import orange from 'orange-orm';
+import { WARMUP_ORDER_IDS, assertWarmupOrders, normalizeOrderLike } from '../bench/warmup-check';
 
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 const ROUNDS = Number.parseInt(process.env.ROUNDS);
@@ -24,12 +25,20 @@ async function benchmark() {
 }
 
 async function warmup() {    
-    //to initate possible lazy loaded pool    
-    const promises = [];
-    for (let i = 0; i < ITERATIONS; i++) {        
-        promises.push(db.customers.getOne());        
-    }
-    await Promise.all(promises);    
+    const orders = await db.orders.getMany({
+        where: x => x.id.in(WARMUP_ORDER_IDS),
+        foo: x => x.details,
+        details: {
+            product: {                
+                supplier: true
+            }
+        },
+        customer: true,
+        employee: true,
+    });
+    console.dir(orders, {depth: Infinity});
+    return;
+    await assertWarmupOrders(orders.map(normalizeOrderLike), 'orange:pg');
 }
 
 async function getRowsWithRelations() {

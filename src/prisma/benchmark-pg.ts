@@ -1,5 +1,6 @@
 import { PrismaClient } from "./generated/pg/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+import { WARMUP_ORDER_IDS, assertWarmupOrders, normalizeOrderLike } from '../bench/warmup-check';
 import { Pool } from "pg";
 import dotenv from 'dotenv';
 dotenv.config();
@@ -39,11 +40,23 @@ async function benchmark() {
 }
 
 async function warmup() {
-    const promises = [];
-    for (let i = 0; i < ITERATIONS; i++) {
-        promises.push(prisma.customer.findFirst());
-    }
-    await Promise.all(promises);
+    const orders = await prisma.order.findMany({
+        where: { id: { in: WARMUP_ORDER_IDS } },
+        include: {
+            customer: true,
+            employee: true,
+            orderDetails: {
+                include: {
+                    product: {
+                        include: {
+                            supplier: true
+                        }
+                    },
+                },
+            },
+        },
+    });
+    await assertWarmupOrders(orders.map(normalizeOrderLike), 'prisma:pg');
 }
 
 async function getRowsWithRelations() {

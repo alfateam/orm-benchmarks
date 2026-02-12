@@ -1,5 +1,6 @@
 import { exit } from 'node:process';
 import db from './sqlite'
+import { WARMUP_ORDER_IDS, assertWarmupOrders, normalizeOrderLike } from '../bench/warmup-check';
 
 const ITERATIONS = Number.parseInt(process.env.ITERATIONS);
 const ROUNDS = Number.parseInt(process.env.ROUNDS);
@@ -18,12 +19,23 @@ async function benchmark() {
 }
 
 async function warmup() {
-	//to initate possible lazy loaded pool
-	const promises = [];
-	for (let i = 0; i < ITERATIONS; i++) {
-        promises.push(db.query.customers.findFirst());
-    }
-	await Promise.all(promises);
+	const orders = await db.query.orders.findMany({
+		where: (orders, { inArray }) => inArray(orders.id, WARMUP_ORDER_IDS),
+		with: {
+			details: {
+				with: {
+					product: {
+						with: {
+							supplier: {},
+						},
+					},
+				},
+			},
+			customer: {},
+			employee: {},
+		},
+	});
+	await assertWarmupOrders(orders.map(normalizeOrderLike), 'drizzle:sqlite');
 }
 
 async function getRowsWithRelations() {

@@ -1,6 +1,7 @@
 import { PrismaClient } from "./generated/mysql/client";
 import { PrismaMariaDb } from "@prisma/adapter-mariadb";
 import extractParameters from '../extractMariaParameters';
+import { WARMUP_ORDER_IDS, assertWarmupOrders, normalizeOrderLike } from '../bench/warmup-check';
 
 import dotenv from 'dotenv';
 dotenv.config();
@@ -45,11 +46,23 @@ async function benchmark() {
 }
 
 async function warmup() {
-    const promises = [];
-    for (let i = 0; i < ITERATIONS; i++) {
-        promises.push(prisma.customer.findFirst());
-    }
-    await Promise.all(promises);
+    const orders = await prisma.order.findMany({
+        where: { id: { in: WARMUP_ORDER_IDS } },
+        include: {
+            customer: true,
+            employee: true,
+            orderDetails: {
+                include: {
+                    product: {
+                        include: {
+                            supplier: true
+                        }
+                    },
+                },
+            },
+        },
+    });
+    await assertWarmupOrders(orders.map(normalizeOrderLike), 'prisma:mysql');
 }
 
 async function getRowsWithRelations() {

@@ -23,7 +23,7 @@ const map = orange.map(x => {
             return {
                 id: column("id").string().primary(),
                 name: column("name").string(),
-                quantityPerUnit: column("unit_price").numeric(),
+                quantityPerUnit: column("qt_per_unit").string(),
                 unitPrice: column("unit_price").numeric(),
                 unitsInStock: column("units_in_stock").numeric(),
                 unitsOnOrder: column("units_on_order").numeric(),

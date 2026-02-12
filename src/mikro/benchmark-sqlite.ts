@@ -3,6 +3,7 @@ import { exit } from 'node:process';
 import { MikroORM } from '@mikro-orm/core';
 import { SqliteDriver } from '@mikro-orm/sqlite';
 import dotenv from 'dotenv';
+import { WARMUP_ORDER_IDS, assertWarmupOrders, normalizeOrderLike } from '../bench/warmup-check';
 
 import { CustomerSchema } from './schema';
 import { EmployeeSchema } from './schema';
@@ -48,15 +49,12 @@ async function main() {
   }
   
   async function warmup() {
-    //to initate possible lazy loaded pool    
-    const promises = [];
-    for (let i = 0; i < ITERATIONS; i++) {        
-        promises.push(orm.em.fork({flushMode: 'commit'}).find(Order, {}, {
-          limit: 1,
-          populate: ['customer', 'employee', 'orderDetails.product.supplier'],
-           }));
-    }    
-    await Promise.all(promises);    
+    const orders = await orm.em.fork({ flushMode: 'commit' }).find(
+      Order,
+      { id: { $in: WARMUP_ORDER_IDS } },
+      { populate: ['customer', 'employee', 'orderDetails.product.supplier'] }
+    );
+    await assertWarmupOrders(orders.map(normalizeOrderLike), 'mikro:sqlite');
   }
   
   async function getRowsWithRelations() {
