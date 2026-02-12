@@ -27,7 +27,6 @@ async function benchmark() {
 async function warmup() {    
     const orders = await db.orders.getMany({
         where: x => x.id.in(WARMUP_ORDER_IDS),
-        foo: x => x.details,
         details: {
             product: {                
                 supplier: true
@@ -36,8 +35,6 @@ async function warmup() {
         customer: true,
         employee: true,
     });
-    console.dir(orders, {depth: Infinity});
-    return;
     await assertWarmupOrders(orders.map(normalizeOrderLike), 'orange:pg');
 }
 
