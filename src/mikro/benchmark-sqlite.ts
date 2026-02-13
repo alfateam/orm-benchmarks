@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { exit } from 'node:process';
 import { MikroORM } from '@mikro-orm/core';
-import { SqliteDriver } from '@mikro-orm/sqlite';
+import { BetterSqliteDriver } from '@mikro-orm/better-sqlite';
 import dotenv from 'dotenv';
 import { WARMUP_ORDER_IDS, assertWarmupOrders, normalizeOrderLike } from '../bench/warmup-check';
 
@@ -26,7 +26,7 @@ async function main() {
       requireEntitiesArray: false,
       alwaysAnalyseProperties: true,
     },
-    driver: SqliteDriver,
+    driver: BetterSqliteDriver,
     clientUrl: `file:${process.env.SQLITE_URL}`,
     pool: {
       min: POOLSIZE,
